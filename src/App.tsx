@@ -1,12 +1,8 @@
-import { Button } from "./components/ui/button";
+import { routes } from "./routes/routes";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
-  return (
-    <div className="flex">
-      DASH CLIENT
-      <Button>Click me</Button>
-    </div>
-  );
+  return <RouterProvider router={routes} />;
 }
 
 export default App;
