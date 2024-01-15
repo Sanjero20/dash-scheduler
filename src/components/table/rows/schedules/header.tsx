@@ -16,7 +16,7 @@ function DayHeader() {
       {DAYS.map((day, index) => (
         <Fragment key={index}>
           <td className="w-24">{day}</td>
-          <td className="w-16">Sec</td>
+          <td className="w-16">room</td>
         </Fragment>
       ))}
     </>

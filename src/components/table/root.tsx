@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./table.scss";
-import Day from "./contents/schedules/header";
+import Day from "./rows/schedules/header";
+import Schedules from "./rows/schedules/main";
 
 function MainTable() {
   const [title, setTitle] = useState("faculty schedule");
@@ -42,8 +43,8 @@ function MainTable() {
           </tr>
 
           <tr>
-            <td colSpan={1}>Room </td>
-            <td colSpan={9}>207</td>
+            <td colSpan={1}>Name of faculty: </td>
+            <td colSpan={9}>(Dropdown)</td>
             <td>Semester:</td>
             <td colSpan={2} className="text-center">
               Second
@@ -56,14 +57,18 @@ function MainTable() {
             </td>
           </tr>
 
+          {/* Schedule Header */}
           <tr className="h-12 text-center text-xs font-bold uppercase">
             <td className="w-[150px]">time</td>
             <Day />
 
             <td>subject</td>
             <td>section</td>
-            <td className="w-[10px]">no. of students</td>
+            <td className="w-[11px]">no. of students</td>
           </tr>
+
+          {/* Schedule */}
+          <Schedules />
         </tbody>
       </table>
     </div>

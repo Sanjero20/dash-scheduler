@@ -3,10 +3,10 @@ import Header from "./header/header";
 
 function UserLayout() {
   return (
-    <div className="flex h-screen min-h-screen flex-col gap-2">
+    <div className="flex h-screen min-h-screen flex-col">
       <Header />
 
-      <main className="container flex-1">
+      <main className="container flex-1 py-2">
         <Outlet />
       </main>
     </div>
