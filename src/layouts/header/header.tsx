@@ -13,6 +13,7 @@ function Header() {
       <nav className="gap-2 text-white">
         {ROUTES.map((route) => (
           <NavLink
+            key={route.path}
             to={route.path}
             className={({ isActive }) =>
               `${isActive ? "bg-white text-black" : undefined} w-12 rounded px-4 py-2`
