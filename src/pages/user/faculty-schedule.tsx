@@ -1,10 +1,10 @@
 import MainTable from "@/components/table/root";
 
-function HomePage() {
+function FacultySchedulePage() {
   return (
     <div className="h-full">
       <MainTable />
     </div>
   );
 }
-export default HomePage;
+export default FacultySchedulePage;

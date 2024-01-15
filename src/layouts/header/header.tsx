@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 import ButtonLogout from "./button-logout";
 
 const ROUTES = [
-  { path: "/", placeholder: "Faculty view" },
-  { path: "/rooms", placeholder: "Room view" },
-  { path: "/another", placeholder: "Another view" },
+  { path: "/", placeholder: "Faculty Schedule" },
+  { path: "/rooms", placeholder: "Room Utilization" },
+  { path: "/schedules", placeholder: "Class Schedule" },
 ];
 
 function Header() {
