@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
+import ButtonLogout from "./button-logout";
 
 const ROUTES = [
   { path: "/", placeholder: "Faculty view" },
@@ -23,7 +23,7 @@ function Header() {
         ))}
       </nav>
 
-      <Button variant={"destructive"}>Logout</Button>
+      <ButtonLogout />
     </header>
   );
 }
