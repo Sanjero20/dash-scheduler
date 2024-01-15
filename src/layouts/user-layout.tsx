@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+import Header from "./header/header";
 
 function UserLayout() {
   return (
     <div className="flex h-screen min-h-screen flex-col">
-      {/* Insert Header here */}
+      <Header />
 
       <main className="container flex-1">
         <Outlet />

@@ -4,7 +4,7 @@ export const userRoutes = [
     element: <>Home</>,
   },
   {
-    path: "/schedules",
+    path: "/faculty",
     element: <>Schedules page</>,
   },
   {
