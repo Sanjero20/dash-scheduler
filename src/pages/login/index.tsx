@@ -24,10 +24,10 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-blue-600 via-indigo-600 to-purple-900">
-      <main className="flex h-96 w-full flex-col gap-4 bg-white p-4 sm:w-[400px] sm:rounded-xl">
-        <div className="flex h-32 items-center justify-center rounded bg-slate-200">
-          LOGO HERE
+    <div className="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-sky-400 to-indigo-800">
+      <main className="flex h-96 w-full flex-col gap-4 bg-white p-4 drop-shadow-2xl sm:w-[400px] sm:rounded-xl">
+        <div className="flex h-32 items-center justify-center">
+          <img src="/logo.png" />
         </div>
 
         <form
@@ -54,7 +54,7 @@ function LoginPage() {
           />
         </form>
 
-        <Button type="submit" form="login-form">
+        <Button type="submit" form="login-form" className="bg-blue-600">
           Login
         </Button>
       </main>
