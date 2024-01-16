@@ -2,6 +2,8 @@
 // the developer was forced to use 120% of his power sacrificing code readability
 // TODO: Clean up code
 
+import { Fragment } from "react";
+
 const SCHEDULES = [
   "06:00 - 07:00",
   "07:00 - 08:00",
@@ -17,13 +19,12 @@ const SCHEDULES = [
   "06:00 - 07:00",
 ];
 
-function Schedules() {
+function ScheduleList() {
   return (
     <>
       {SCHEDULES.map((schedule, index) => (
-        <>
+        <Fragment key={index}>
           {/* template */}
-
           <tr className="h-8 text-center">
             <td rowSpan={2}>{schedule}</td>
 
@@ -96,10 +97,10 @@ function Schedules() {
               </>
             )}
           </tr>
-        </>
+        </Fragment>
       ))}
     </>
   );
 }
 
-export default Schedules;
+export default ScheduleList;

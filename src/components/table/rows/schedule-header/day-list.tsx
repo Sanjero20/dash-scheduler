@@ -10,7 +10,7 @@ const DAYS = [
   "sunday",
 ];
 
-function DayHeader() {
+function DayList() {
   return (
     <>
       {DAYS.map((day, index) => (
@@ -23,4 +23,4 @@ function DayHeader() {
   );
 }
 
-export default DayHeader;
+export default DayList;
