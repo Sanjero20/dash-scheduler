@@ -1,25 +1,10 @@
-// Due to time constraints,
-// the developer was forced to use 120% of his power sacrificing code readability
-// TODO: Clean up code
-
-import { Fragment } from "react";
-
-const SCHEDULES = [
-  "06:00 - 07:00",
-  "07:00 - 08:00",
-  "08:00 - 09:00",
-  "09:00 - 10:10",
-  "10:00 - 11:00",
-  "12:00 - 01:00",
-  "01:00 - 02:00",
-  "02:00 - 03:00",
-  "03:00 - 04:00",
-  "04:00 - 05:00",
-  "05:00 - 06:00",
-  "06:00 - 07:00",
-];
+import { Fragment, useEffect } from "react";
+import { SCHEDULES } from "@/constants/initial";
+import ColumnName from "./names";
 
 function ScheduleList() {
+  useEffect(() => {}, []);
+
   return (
     <>
       {SCHEDULES.map((schedule, index) => (
@@ -57,26 +42,10 @@ function ScheduleList() {
               </>
             )}
 
-            {index == 4 && (
-              <td rowSpan={4} colSpan={3}>
-                <p className="uppercase">name</p>
-                <p className="font-bold">title</p>
-              </td>
-            )}
-
-            {index == 6 && (
-              <td rowSpan={4} colSpan={3}>
-                <p className="uppercase">name</p>
-                <p className="font-bold">title</p>
-              </td>
-            )}
-
-            {index == 8 && (
-              <td rowSpan={8} colSpan={3}>
-                <p className="uppercase">name</p>
-                <p className="font-bold">title</p>
-              </td>
-            )}
+            {/* Columns for the names in the right side of the table */}
+            {index == 4 && <ColumnName rowSpan={4} name="" title="" />}
+            {index == 6 && <ColumnName rowSpan={4} name="" title="" />}
+            {index == 8 && <ColumnName rowSpan={8} name="" title="" />}
           </tr>
 
           {/* sections */}

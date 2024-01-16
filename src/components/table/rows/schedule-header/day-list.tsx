@@ -1,14 +1,5 @@
 import { Fragment } from "react";
-
-const DAYS = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
-];
+import { DAYS } from "@/constants/initial";
 
 function DayList() {
   return (
