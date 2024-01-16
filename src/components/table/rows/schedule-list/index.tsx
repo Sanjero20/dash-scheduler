@@ -1,7 +1,9 @@
 import { ChangeEvent, Fragment, useReducer } from "react";
-import { SCHEDULES, createSchedulePerTime } from "@/constants/initial";
+import { createSchedulePerTime } from "@/constants/initial";
 import ColumnName from "./names";
 import { ISchedule } from "@/types/api";
+import InputDayList from "./day-list";
+import InputSectionList from "./section-list";
 
 type IAction =
   | { type: "UPDATE_COURSE"; index: number; day: string; value: string }
@@ -63,7 +65,7 @@ function ScheduleList() {
   const [state, dispatch] = useReducer(scheduleReducer, initialState);
 
   console.clear();
-  console.table(state[0].schedules[0]);
+  console.table(state);
 
   const handleCourseInput = (
     e: ChangeEvent<HTMLInputElement>,
@@ -78,6 +80,7 @@ function ScheduleList() {
     index: number,
   ) => {
     const { value, name } = e.target;
+
     dispatch({ type: "UPDATE_SECTION", index, day: name, value });
   };
 
@@ -88,42 +91,18 @@ function ScheduleList() {
 
   return (
     <>
-      {SCHEDULES.map((schedule, index) => (
+      {state.map((schedule, index) => (
         <Fragment key={index}>
           {/* template */}
           <tr className="h-8 text-center">
-            <td rowSpan={2}>{schedule}</td>
+            <td rowSpan={2}>{schedule.time}</td>
 
-            <td rowSpan={1}>
-              <input
-                type="text"
-                name="monday"
-                value={state[index].schedules[0].course}
-                onChange={(e) => handleCourseInput(e, index)}
-              />
-            </td>
-
-            <td rowSpan={2}>
-              <input
-                type="text"
-                name="monday"
-                value={state[index].schedules[0].room}
-                onChange={(e) => handleRoomInput(e, index)}
-              />
-            </td>
-
-            <td rowSpan={1}></td>
-            <td rowSpan={2}></td>
-            <td rowSpan={1}></td>
-            <td rowSpan={2}></td>
-            <td rowSpan={1}></td>
-            <td rowSpan={2}></td>
-            <td rowSpan={1}></td>
-            <td rowSpan={2}></td>
-            <td rowSpan={1}></td>
-            <td rowSpan={2}></td>
-            <td rowSpan={1}></td>
-            <td rowSpan={2}></td>
+            <InputDayList
+              stateIndex={index}
+              state={state}
+              onChangeCourse={handleCourseInput}
+              onChangeRoom={handleRoomInput}
+            />
 
             {index < 4 && (
               <>
@@ -141,20 +120,11 @@ function ScheduleList() {
 
           {/* sections */}
           <tr className="h-8 w-fit text-center">
-            <td>
-              <input
-                type="text"
-                name="monday"
-                value={state[index].schedules[0].section}
-                onChange={(e) => handleSectionInput(e, index)}
-              />
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <InputSectionList
+              stateIndex={index}
+              state={state}
+              onSectionChange={handleSectionInput}
+            />
 
             {index < 4 && (
               <>
