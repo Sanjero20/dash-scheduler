@@ -6,9 +6,19 @@
     // font-size: 14px;
   }
 
-  td,
-  th {
+  td {
     border: 1px solid black;
     padding: 0.25rem;
+  }
+
+  td:has(input:focus) {
+    border: 2px solid rgb(0, 150, 0);
+    box-sizing: border-box;
+  }
+
+  input {
+    text-align: center;
+    border: 0;
+    outline: 0;
   }
 }
