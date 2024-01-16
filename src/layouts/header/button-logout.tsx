@@ -5,7 +5,11 @@ function ButtonLogout() {
   const navigate = useNavigate();
 
   return (
-    <Button variant={"destructive"} onClick={() => navigate("/login")}>
+    <Button
+      variant={"destructive"}
+      onClick={() => navigate("/login")}
+      className="rounded-xl"
+    >
       Logout
     </Button>
   );
