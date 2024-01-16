@@ -54,7 +54,11 @@ function LoginPage() {
           />
         </form>
 
-        <Button type="submit" form="login-form" className="bg-blue-600">
+        <Button
+          type="submit"
+          form="login-form"
+          className="bg-blue-600 hover:bg-blue-700"
+        >
           Login
         </Button>
       </main>
