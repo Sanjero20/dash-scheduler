@@ -33,21 +33,6 @@ export const initialTableData = {
   academicYear: "2023-2024",
 };
 
-export const initialScheduleData: ISchedule[] = [
-  {
-    time: "",
-    schedules: [
-      {
-        day: "monday",
-        course: "",
-        section: "",
-        room: "",
-        initials: "",
-      },
-    ],
-  },
-];
-
 export function createSchedulePerTime() {
   const array: ISchedule[] = [];
 

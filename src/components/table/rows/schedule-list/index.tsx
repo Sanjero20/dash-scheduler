@@ -1,14 +1,17 @@
-import { ChangeEvent, Fragment, useReducer } from "react";
-import { createSchedulePerTime } from "@/constants/initial";
+import { ChangeEvent, Fragment, useEffect, useReducer } from "react";
+import { SCHEDULES, createSchedulePerTime } from "@/constants/initial";
 import ColumnName from "./names";
 import { ISchedule } from "@/types/api";
 import InputDayList from "./day-list";
 import InputSectionList from "./section-list";
+import { getFormattedShedule } from "@/services/api/faculty";
+import { useSchedule } from "@/stores/schedule";
 
 type IAction =
   | { type: "UPDATE_COURSE"; index: number; day: string; value: string }
   | { type: "UPDATE_SECTION"; index: number; day: string; value: string }
-  | { type: "UPDATE_ROOM"; index: number; day: string; value: string };
+  | { type: "UPDATE_ROOM"; index: number; day: string; value: string }
+  | { type: "SET_ALL"; value: ISchedule[] };
 
 const scheduleReducer = (state: ISchedule[], action: IAction) => {
   switch (action.type) {
@@ -56,6 +59,9 @@ const scheduleReducer = (state: ISchedule[], action: IAction) => {
             }
           : schedule,
       );
+
+    case "SET_ALL":
+      return action.value;
   }
 };
 
@@ -63,9 +69,20 @@ const initialState = createSchedulePerTime();
 
 function ScheduleList() {
   const [state, dispatch] = useReducer(scheduleReducer, initialState);
+  const { setSchedules } = useSchedule();
 
-  console.clear();
-  console.table(state);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getFormattedShedule(1);
+      dispatch({ type: "SET_ALL", value: data });
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setSchedules(state);
+  }, [state]);
 
   const handleCourseInput = (
     e: ChangeEvent<HTMLInputElement>,
@@ -91,11 +108,11 @@ function ScheduleList() {
 
   return (
     <>
-      {state.map((schedule, index) => (
+      {SCHEDULES.map((schedule, index) => (
         <Fragment key={index}>
           {/* template */}
           <tr className="h-8 text-center">
-            <td rowSpan={2}>{schedule.time}</td>
+            <td rowSpan={2}>{schedule}</td>
 
             <InputDayList
               stateIndex={index}

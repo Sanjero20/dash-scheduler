@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import ButtonLogout from "./button-logout";
+import ButtonSave from "./button-save";
 
 const ROUTES = [
   { path: "/", placeholder: "Faculty Schedule" },
@@ -23,7 +24,7 @@ function Header() {
           </NavLink>
         ))}
       </nav>
-
+      <ButtonSave />
       <ButtonLogout />
     </header>
   );
