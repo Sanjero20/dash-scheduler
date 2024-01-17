@@ -1,3 +1,5 @@
+import SelectFaculty from "../faculty/select-faculty";
+
 function TableMetadata() {
   return (
     <>
@@ -16,7 +18,9 @@ function TableMetadata() {
       {/* Fourth Row */}
       <tr>
         <td colSpan={1}>Name of faculty: </td>
-        <td colSpan={9}>(Dropdown)</td>
+        <td colSpan={9}>
+          <SelectFaculty />
+        </td>
         <td>Semester:</td>
         <td colSpan={2} className="text-center">
           Second

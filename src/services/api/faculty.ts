@@ -1,4 +1,4 @@
-import { ISchedule } from "@/types/api";
+import { ISchedule, IFaculty } from "@/types/api";
 import { api } from "../config";
 
 export async function getSchedulesByUser(user_id: number) {
@@ -22,7 +22,8 @@ export async function uploadSchedules(data: ISchedule[]) {
   return await response.data;
 }
 
-export async function getFaculties() {
+export async function getFaculties(): Promise<IFaculty[]> {
   const response = await api.get("/faculties");
-  return await response.data;
+  const faculties = response.data;
+  return faculties.rows;
 }

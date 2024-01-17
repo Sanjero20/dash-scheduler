@@ -6,6 +6,7 @@ import InputDayList from "./day-list";
 import InputSectionList from "./section-list";
 import { getFormattedShedule } from "@/services/api/faculty";
 import { useSchedule } from "@/stores/schedule";
+import { useSearchParams } from "react-router-dom";
 
 type IAction =
   | { type: "UPDATE_COURSE"; index: number; day: string; value: string }
@@ -71,14 +72,24 @@ function ScheduleList() {
   const [state, dispatch] = useReducer(scheduleReducer, initialState);
   const { setSchedules } = useSchedule();
 
+  const [searchParams] = useSearchParams();
+
   useEffect(() => {
+    console.log("trigger");
+    const userId = searchParams.get("userId");
+    if (!userId) {
+      setSchedules([]);
+      return;
+    }
     const fetchData = async () => {
-      const data = await getFormattedShedule(1);
+      const data = await getFormattedShedule(parseInt(userId));
+
+      console.log(data);
       dispatch({ type: "SET_ALL", value: data });
     };
 
     fetchData();
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     setSchedules(state);

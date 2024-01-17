@@ -10,3 +10,9 @@ export interface ISchedule {
   time: string;
   schedules: IScheduleData[];
 }
+
+export interface IFaculty {
+  id: number;
+  name: string;
+  initials: string;
+}
