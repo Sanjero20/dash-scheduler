@@ -6,12 +6,16 @@ import TableMetadata from "./rows/table-metadata";
 import ScheduleHeader from "./rows/schedule-header";
 import ScheduleList from "./rows/schedule-list";
 
-function MainTable() {
+interface MainTableProps {
+  title: string;
+}
+
+function MainTable({ title }: MainTableProps) {
   return (
     <table id="table-schedule" className="h-full w-full">
       <tbody>
         <LogoRevision />
-        <TableTitle />
+        <TableTitle title={title} />
         <TableMetadata />
         <ScheduleHeader />
         <ScheduleList />

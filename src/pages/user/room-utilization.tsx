@@ -1,5 +1,11 @@
+import MainTable from "@/components/table/root";
+
 function RoomUtilizationPage() {
-  return <div>Room Utilization</div>;
+  return (
+    <div>
+      <MainTable title="room utilization" />
+    </div>
+  );
 }
 
 export default RoomUtilizationPage;
