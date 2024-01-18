@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import ColumnName from "../rows/schedule-list/names";
 import InputCol from "./input/input-col";
 import InputFaculty from "./input/input-faculty";
-import { getRoomDataByCode, getRoomList } from "@/services/api/room";
+import { getRoomDataByCode } from "@/services/api/room";
 
 function RoomSchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();

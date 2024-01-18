@@ -17,9 +17,10 @@ function LoginPage() {
     // Submit to backend
 
     // Get accountRole
-    const accountRole = "user";
-    const path = accountRole === "admin" ? "/admin" : "/"; // or admin
+    // const accountRole = "user";
+    // const path = accountRole === "admin" ? "/admin" : "/"; // or admin
 
+    const path = "/";
     navigate(path, { replace: true });
   };
 
