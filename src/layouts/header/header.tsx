@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import ButtonLogout from "./button-logout";
 import ButtonSave from "./button-save";
+import ButtonPrint from "./button-print";
 
 const ROUTES = [
   { path: "/", placeholder: "Faculty Schedule" },
@@ -24,8 +25,15 @@ function Header() {
           </NavLink>
         ))}
       </nav>
-      <ButtonSave />
-      <ButtonLogout />
+
+      <div className="flex gap-8">
+        <div className="flex gap-2">
+          <ButtonSave />
+          <ButtonPrint />
+        </div>
+
+        <ButtonLogout />
+      </div>
     </header>
   );
 }

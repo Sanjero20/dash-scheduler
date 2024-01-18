@@ -11,7 +11,11 @@ function ButtonSave() {
     console.log(response);
   };
 
-  return <Button onClick={handleSave}>Save</Button>;
+  return (
+    <Button variant={"secondary"} onClick={handleSave}>
+      Save
+    </Button>
+  );
 }
 
 export default ButtonSave;

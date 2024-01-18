@@ -24,3 +24,35 @@
     height: 100%;
   }
 }
+
+// Print settings
+@page {
+}
+
+@media print {
+  * {
+    visibility: hidden;
+  }
+
+  body {
+    zoom: 70%;
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: "";
+  }
+
+  #table-schedule,
+  #table-schedule * {
+    visibility: visible;
+  }
+
+  #table-schedule {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
