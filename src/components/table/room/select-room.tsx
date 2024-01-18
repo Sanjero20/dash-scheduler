@@ -1,23 +1,34 @@
+import { getRoomList } from "@/services/api/room";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 function SelectRoom() {
   const [rooms, setRooms] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(
+    searchParams.get("id") || "",
+  );
 
   useEffect(() => {
     const fetchData = async () => {
-      // const roomList = await getRoomsList()
-      //
+      const roomList = await getRoomList();
+      setRooms(roomList);
     };
 
     fetchData();
-  });
+  }, []);
+
+  useEffect(() => {
+    const params = searchParams.get("id");
+    if (params == "") {
+      searchParams.delete("id");
+      setSearchParams(searchParams);
+    }
+  }, [searchParams]);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(e.target.value);
-    setSearchParams({ roomId: e.target.value });
+    setSearchParams({ id: e.target.value });
   };
 
   return (
@@ -32,8 +43,8 @@ function SelectRoom() {
 
       {rooms &&
         rooms.map((room) => (
-          <option key={room.id} value={room.id}>
-            {room.name}
+          <option key={room} value={room}>
+            {room}
           </option>
         ))}
     </select>

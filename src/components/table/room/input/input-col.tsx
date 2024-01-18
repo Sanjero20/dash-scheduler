@@ -16,6 +16,7 @@ function InputCol({ stateIndex, state, handleInputChange }: Props) {
           {/*  */}
           <td rowSpan={1}>
             <input
+              disabled
               type="text"
               name={`${day}-course`}
               value={state[stateIndex].schedules[index].course}
@@ -27,6 +28,7 @@ function InputCol({ stateIndex, state, handleInputChange }: Props) {
           {/* The big field */}
           <td rowSpan={2}>
             <input
+              disabled
               type="text"
               name={`${day}-section`}
               value={state[stateIndex].schedules[index].section}

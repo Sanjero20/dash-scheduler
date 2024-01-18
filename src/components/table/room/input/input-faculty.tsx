@@ -15,6 +15,7 @@ function InputFaculty({ stateIndex, state, handleInputChange }: Props) {
         <Fragment key={index}>
           <td>
             <input
+              disabled
               type="text"
               name={`${day}-initials`}
               value={state[stateIndex].schedules[index].initials}

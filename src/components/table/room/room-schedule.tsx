@@ -1,17 +1,29 @@
 import { SCHEDULES } from "@/constants/initial";
 import useScheduleList from "@/hooks/useScheduleList";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import ColumnName from "../rows/schedule-list/names";
 import InputCol from "./input/input-col";
 import InputFaculty from "./input/input-faculty";
+import { getRoomDataByCode, getRoomList } from "@/services/api/room";
 
 function RoomSchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
   const [searchParams] = useSearchParams();
 
-  console.clear();
-  console.table(state[0].schedules);
+  useEffect(() => {
+    const id = searchParams.get("id");
+    if (!id) {
+      return;
+    }
+
+    const fetchData = async () => {
+      const roomDetails = await getRoomDataByCode(id);
+      dispatch({ type: "SET_ALL", value: roomDetails });
+    };
+
+    fetchData();
+  }, [searchParams]);
 
   return (
     <>
