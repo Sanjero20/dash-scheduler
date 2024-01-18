@@ -5,13 +5,13 @@ import { ChangeEvent, Fragment } from "react";
 interface SectionListProps {
   stateIndex: number;
   state: ISchedule[];
-  onSectionChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
 }
 
 function InputSectionList({
   stateIndex,
   state,
-  onSectionChange,
+  handleInputChange,
 }: SectionListProps) {
   return (
     <>
@@ -20,9 +20,9 @@ function InputSectionList({
           <td>
             <input
               type="text"
-              name={day}
+              name={`${day}-section`}
               value={state[stateIndex].schedules[index].section}
-              onChange={(e) => onSectionChange(e, stateIndex)}
+              onChange={(e) => handleInputChange(e, stateIndex)}
               tabIndex={index}
             />
           </td>

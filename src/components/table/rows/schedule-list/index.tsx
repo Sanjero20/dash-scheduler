@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, Fragment, useEffect, useReducer } from "react";
 import { SCHEDULES, createSchedulePerTime } from "@/constants/initial";
 import ColumnName from "./names";
@@ -9,60 +10,34 @@ import { useSchedule } from "@/stores/schedule";
 import { useSearchParams } from "react-router-dom";
 
 type IAction =
-  | { type: "UPDATE_COURSE"; index: number; day: string; value: string }
-  | { type: "UPDATE_SECTION"; index: number; day: string; value: string }
-  | { type: "UPDATE_ROOM"; index: number; day: string; value: string }
-  | { type: "SET_ALL"; value: ISchedule[] };
+  | { type: "SET_ALL"; value: ISchedule[] }
+  | {
+      type: "UPDATE_VALUE";
+      index: number;
+      day: string;
+      key: string;
+      value: string;
+    };
 
 const scheduleReducer = (state: ISchedule[], action: IAction) => {
   switch (action.type) {
-    case "UPDATE_COURSE":
-      return state.map((schedule, index) =>
-        index === action.index
-          ? {
-              ...schedule,
-              schedules: schedule.schedules.map((day) => {
-                if (day.day === action.day) {
-                  return { ...day, course: action.value };
-                }
-                return day;
-              }),
-            }
-          : schedule,
-      );
-
-    case "UPDATE_SECTION":
-      return state.map((schedule, index) =>
-        index === action.index
-          ? {
-              ...schedule,
-              schedules: schedule.schedules.map((day) => {
-                if (day.day === action.day) {
-                  return { ...day, section: action.value };
-                }
-                return day;
-              }),
-            }
-          : schedule,
-      );
-
-    case "UPDATE_ROOM":
-      return state.map((schedule, index) =>
-        index === action.index
-          ? {
-              ...schedule,
-              schedules: schedule.schedules.map((day) => {
-                if (day.day === action.day) {
-                  return { ...day, room: action.value };
-                }
-                return day;
-              }),
-            }
-          : schedule,
-      );
-
     case "SET_ALL":
       return action.value;
+
+    case "UPDATE_VALUE":
+      return state.map((schedule, index) =>
+        index === action.index
+          ? {
+              ...schedule,
+              schedules: schedule.schedules.map((day) => {
+                if (day.day === action.day) {
+                  return { ...day, [action.key]: action.value };
+                }
+                return day;
+              }),
+            }
+          : schedule,
+      );
   }
 };
 
@@ -74,8 +49,8 @@ function ScheduleList() {
 
   const [searchParams] = useSearchParams();
 
+  // fetch data base on userId
   useEffect(() => {
-    console.log("trigger");
     const userId = searchParams.get("userId");
     if (!userId) {
       setSchedules([]);
@@ -84,37 +59,29 @@ function ScheduleList() {
     const fetchData = async () => {
       const data = await getFormattedShedule(parseInt(userId));
 
-      console.log(data);
       dispatch({ type: "SET_ALL", value: data });
     };
 
     fetchData();
   }, [searchParams]);
 
+  // copy state globally
   useEffect(() => {
     setSchedules(state);
   }, [state]);
 
-  const handleCourseInput = (
-    e: ChangeEvent<HTMLInputElement>,
-    index: number,
-  ) => {
-    const { value, name } = e.target;
-    dispatch({ type: "UPDATE_COURSE", index, day: name, value });
-  };
-
-  const handleSectionInput = (
+  const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
     index: number,
   ) => {
     const { value, name } = e.target;
 
-    dispatch({ type: "UPDATE_SECTION", index, day: name, value });
-  };
+    // Split name to day and key
+    const inputValues = name.split("-");
+    const day = inputValues[0];
+    const key = inputValues[1];
 
-  const handleRoomInput = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-    const { value, name } = e.target;
-    dispatch({ type: "UPDATE_ROOM", index, day: name, value });
+    dispatch({ type: "UPDATE_VALUE", index, day, key, value });
   };
 
   return (
@@ -128,8 +95,7 @@ function ScheduleList() {
             <InputDayList
               stateIndex={index}
               state={state}
-              onChangeCourse={handleCourseInput}
-              onChangeRoom={handleRoomInput}
+              handleInputChange={handleInputChange}
             />
 
             {index < 4 && (
@@ -141,9 +107,19 @@ function ScheduleList() {
             )}
 
             {/* Columns for the names in the right side of the table */}
-            {index == 4 && <ColumnName rowSpan={4} name="" title="" />}
-            {index == 6 && <ColumnName rowSpan={4} name="" title="" />}
-            {index == 8 && <ColumnName rowSpan={8} name="" title="" />}
+            {index == 4 && (
+              <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
+            )}
+            {index == 6 && (
+              <ColumnName rowSpan={4} name="" title="Dean CEAFA" />
+            )}
+            {index == 8 && (
+              <ColumnName
+                rowSpan={8}
+                name=""
+                title="Executive Director, Main II"
+              />
+            )}
           </tr>
 
           {/* sections */}
@@ -151,7 +127,7 @@ function ScheduleList() {
             <InputSectionList
               stateIndex={index}
               state={state}
-              onSectionChange={handleSectionInput}
+              handleInputChange={handleInputChange}
             />
 
             {index < 4 && (
