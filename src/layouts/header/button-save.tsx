@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { uploadSchedules } from "@/services/api/faculty";
-import { useSchedule } from "@/stores/schedule";
+import { useScheduleStore } from "@/stores/schedule";
 
 function ButtonSave() {
-  const { getSchedules } = useSchedule();
+  const { getSchedules } = useScheduleStore();
 
   const handleSave = async () => {
     const schedules = getSchedules();

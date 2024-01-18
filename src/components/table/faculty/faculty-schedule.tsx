@@ -1,52 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ChangeEvent, Fragment, useEffect, useReducer } from "react";
-import { SCHEDULES, createSchedulePerTime } from "@/constants/initial";
-import ColumnName from "./names";
-import { ISchedule } from "@/types/api";
-import InputDayList from "./day-list";
-import InputSectionList from "./section-list";
-import { getFormattedShedule } from "@/services/api/faculty";
-import { useSchedule } from "@/stores/schedule";
+import { Fragment, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { SCHEDULES } from "@/constants/initial";
 
-type IAction =
-  | { type: "SET_ALL"; value: ISchedule[] }
-  | {
-      type: "UPDATE_VALUE";
-      index: number;
-      day: string;
-      key: string;
-      value: string;
-    };
+import ColumnName from "../rows/schedule-list/names";
+import InputDayList from "../rows/schedule-list/input-fields/day-list";
+import InputSectionList from "../rows/schedule-list/input-fields/section-list";
 
-const scheduleReducer = (state: ISchedule[], action: IAction) => {
-  switch (action.type) {
-    case "SET_ALL":
-      return action.value;
+import { getFormattedShedule } from "@/services/api/faculty";
+import { useScheduleStore } from "@/stores/schedule";
+import useScheduleList from "@/hooks/useScheduleList";
 
-    case "UPDATE_VALUE":
-      return state.map((schedule, index) =>
-        index === action.index
-          ? {
-              ...schedule,
-              schedules: schedule.schedules.map((day) => {
-                if (day.day === action.day) {
-                  return { ...day, [action.key]: action.value };
-                }
-                return day;
-              }),
-            }
-          : schedule,
-      );
-  }
-};
-
-const initialState = createSchedulePerTime();
-
-function ScheduleList() {
-  const [state, dispatch] = useReducer(scheduleReducer, initialState);
-  const { setSchedules } = useSchedule();
-
+function FacultySchedule() {
+  const [state, dispatch, handleInputChange] = useScheduleList();
+  const { setSchedules } = useScheduleStore();
   const [searchParams] = useSearchParams();
 
   // fetch data base on userId
@@ -58,7 +25,6 @@ function ScheduleList() {
     }
     const fetchData = async () => {
       const data = await getFormattedShedule(parseInt(userId));
-
       dispatch({ type: "SET_ALL", value: data });
     };
 
@@ -69,20 +35,6 @@ function ScheduleList() {
   useEffect(() => {
     setSchedules(state);
   }, [state]);
-
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    index: number,
-  ) => {
-    const { value, name } = e.target;
-
-    // Split name to day and key
-    const inputValues = name.split("-");
-    const day = inputValues[0];
-    const key = inputValues[1];
-
-    dispatch({ type: "UPDATE_VALUE", index, day, key, value });
-  };
 
   return (
     <>
@@ -146,4 +98,4 @@ function ScheduleList() {
   );
 }
 
-export default ScheduleList;
+export default FacultySchedule;

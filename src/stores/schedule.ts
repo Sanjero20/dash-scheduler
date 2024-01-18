@@ -13,7 +13,7 @@ interface Actions {
 
 const initialData = createSchedulePerTime();
 
-export const useSchedule = create<States & Actions>((set, get) => ({
+export const useScheduleStore = create<States & Actions>((set, get) => ({
   schedules: initialData,
   setSchedules: (schedules) => set({ schedules }),
   getSchedules: () => get().schedules,

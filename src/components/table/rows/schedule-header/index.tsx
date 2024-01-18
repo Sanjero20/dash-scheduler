@@ -1,10 +1,14 @@
-import DayList from "./day-list";
+import DayList from "./day-column";
 
-function ScheduleHeader() {
+interface Props {
+  category: string;
+}
+
+function ScheduleHeader({ category }: Props) {
   return (
     <tr className="h-12 text-center text-xs font-bold uppercase">
       <td className="w-[150px]">time</td>
-      <DayList />
+      <DayList category={category} />
 
       <td>subject</td>
       <td>section</td>

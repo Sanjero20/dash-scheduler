@@ -8,11 +8,12 @@ interface DayListProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
 }
 
-function InputDayList({ stateIndex, state, handleInputChange }: DayListProps) {
+function InputColumn({ stateIndex, state, handleInputChange }: DayListProps) {
   return (
     <>
       {DAYS.map((day, index) => (
         <Fragment key={index}>
+          {/*  */}
           <td rowSpan={1}>
             <input
               type="text"
@@ -23,6 +24,7 @@ function InputDayList({ stateIndex, state, handleInputChange }: DayListProps) {
             />
           </td>
 
+          {/* The big field */}
           <td rowSpan={2}>
             <input
               type="text"
@@ -38,4 +40,4 @@ function InputDayList({ stateIndex, state, handleInputChange }: DayListProps) {
   );
 }
 
-export default InputDayList;
+export default InputColumn;
