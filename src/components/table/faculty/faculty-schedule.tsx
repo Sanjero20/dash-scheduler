@@ -13,7 +13,7 @@ import useScheduleList from "@/hooks/useScheduleList";
 
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
-  const { setSchedules } = useScheduleStore();
+  const { getSchedules, setSchedules } = useScheduleStore();
   const [searchParams] = useSearchParams();
 
   // fetch data base on userId
@@ -35,6 +35,13 @@ function FacultySchedule() {
   useEffect(() => {
     setSchedules(state);
   }, [state]);
+
+  useEffect(() => {
+    const schedules = getSchedules();
+    dispatch({ type: "SET_ALL", value: schedules });
+  }, [setSchedules]);
+
+  console.log(getSchedules());
 
   return (
     <>

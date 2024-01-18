@@ -4,6 +4,7 @@ export interface IScheduleData {
   room: string;
   section: string;
   initials: string;
+  conflicted?: boolean;
 }
 
 export interface ISchedule {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ISchedule, IFaculty } from "@/types/api";
 import { api } from "../config";
 
@@ -16,10 +17,14 @@ export async function getFormattedShedule(
 }
 
 export async function uploadSchedules(data: ISchedule[]) {
-  const response = await api.post("/schedules/bulk/formatted", { rows: data });
-
-  console.log(response);
-  return await response.data;
+  try {
+    const response = await api.post("/schedules/bulk/formatted", {
+      rows: data,
+    });
+    return await response.data;
+  } catch (error: any) {
+    return error.response.data.message;
+  }
 }
 
 export async function getFaculties(): Promise<IFaculty[]> {

@@ -1,4 +1,5 @@
 import { DAYS } from "@/constants/initial";
+import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
 import { ChangeEvent, Fragment } from "react";
 
@@ -9,6 +10,8 @@ interface DayListProps {
 }
 
 function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
+  const { getSchedules } = useScheduleStore();
+
   return (
     <>
       {DAYS.map((day, index) => (
@@ -25,7 +28,14 @@ function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
           </td>
 
           {/* The big field */}
-          <td rowSpan={2}>
+          <td
+            rowSpan={2}
+            className={
+              getSchedules()[stateIndex].schedules[index].conflicted
+                ? "bg-red-400"
+                : ""
+            }
+          >
             <input
               type="text"
               name={`${day}-room`}
