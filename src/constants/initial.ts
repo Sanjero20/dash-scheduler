@@ -23,6 +23,7 @@ export const SCHEDULES = [
   "04:00 - 05:00",
   "05:00 - 06:00",
   "06:00 - 07:00",
+  "07:00 - 08:00",
 ];
 
 export const initialTableData = {

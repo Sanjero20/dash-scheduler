@@ -98,27 +98,12 @@ function ScheduleList() {
               handleInputChange={handleInputChange}
             />
 
-            {index < 4 && (
+            {index < 8 && (
               <>
                 <td></td>
                 <td></td>
                 <td></td>
               </>
-            )}
-
-            {/* Columns for the names in the right side of the table */}
-            {index == 4 && (
-              <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
-            )}
-            {index == 6 && (
-              <ColumnName rowSpan={4} name="" title="Dean CEAFA" />
-            )}
-            {index == 8 && (
-              <ColumnName
-                rowSpan={8}
-                name=""
-                title="Executive Director, Main II"
-              />
             )}
           </tr>
 
@@ -130,12 +115,29 @@ function ScheduleList() {
               handleInputChange={handleInputChange}
             />
 
-            {index < 4 && (
+            {index < 7 && (
               <>
                 <td></td>
                 <td></td>
                 <td></td>
               </>
+            )}
+
+            {/* Columns for the names in the right side of the table */}
+            {index == 7 && (
+              <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
+            )}
+
+            {index == 9 && (
+              <ColumnName rowSpan={6} name="" title="Dean CEAFA" />
+            )}
+
+            {index == 12 && (
+              <ColumnName
+                rowSpan={9}
+                name=""
+                title="Executive Director, Main II"
+              />
             )}
           </tr>
         </Fragment>
