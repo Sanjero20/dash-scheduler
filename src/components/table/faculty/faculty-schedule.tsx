@@ -4,8 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { SCHEDULES } from "@/constants/initial";
 
 import ColumnName from "../rows/schedule-list/names";
-import InputColumn from "./input/input-column";
-import InputSectionList from "./input/section-list";
+import InputCol from "./input/input-col";
+import InputSection from "./input/input-section";
 
 import { getFormattedShedule } from "@/services/api/faculty";
 import { useScheduleStore } from "@/stores/schedule";
@@ -44,7 +44,7 @@ function FacultySchedule() {
           <tr className="h-8 text-center">
             <td rowSpan={2}>{schedule}</td>
 
-            <InputColumn
+            <InputCol
               stateIndex={index}
               state={state}
               handleInputChange={handleInputChange}
@@ -61,7 +61,7 @@ function FacultySchedule() {
 
           {/* sections */}
           <tr className="h-8 w-fit text-center">
-            <InputSectionList
+            <InputSection
               stateIndex={index}
               state={state}
               handleInputChange={handleInputChange}

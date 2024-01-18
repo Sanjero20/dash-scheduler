@@ -2,17 +2,13 @@ import { DAYS } from "@/constants/initial";
 import { ISchedule } from "@/types/api";
 import { ChangeEvent, Fragment } from "react";
 
-interface SectionListProps {
+interface Props {
   stateIndex: number;
   state: ISchedule[];
   handleInputChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
 }
 
-function InputSectionList({
-  stateIndex,
-  state,
-  handleInputChange,
-}: SectionListProps) {
+function InputFaculty({ stateIndex, state, handleInputChange }: Props) {
   return (
     <>
       {DAYS.map((day, index) => (
@@ -20,8 +16,8 @@ function InputSectionList({
           <td>
             <input
               type="text"
-              name={`${day}-section`}
-              value={state[stateIndex].schedules[index].section}
+              name={`${day}-initials`}
+              value={state[stateIndex].schedules[index].initials}
               onChange={(e) => handleInputChange(e, stateIndex)}
               tabIndex={index}
             />
@@ -32,4 +28,4 @@ function InputSectionList({
   );
 }
 
-export default InputSectionList;
+export default InputFaculty;

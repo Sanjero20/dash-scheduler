@@ -10,6 +10,7 @@ function SelectFaculty() {
     searchParams.get("userId") || "",
   );
 
+  // fetch faculty list
   useEffect(() => {
     const fetchData = async () => {
       const faculties = await getFaculties();
@@ -19,11 +20,7 @@ function SelectFaculty() {
     fetchData();
   }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(e.target.value);
-    setSearchParams({ userId: e.target.value });
-  };
-
+  // Update query params on select
   useEffect(() => {
     const params = searchParams.get("userId");
 
@@ -32,6 +29,11 @@ function SelectFaculty() {
       setSearchParams(searchParams);
     }
   }, [searchParams]);
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedValue(e.target.value);
+    setSearchParams({ userId: e.target.value });
+  };
 
   return (
     <select

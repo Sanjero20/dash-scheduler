@@ -8,7 +8,7 @@ interface DayListProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
 }
 
-function InputColumn({ stateIndex, state, handleInputChange }: DayListProps) {
+function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
   return (
     <>
       {DAYS.map((day, index) => (
@@ -40,4 +40,4 @@ function InputColumn({ stateIndex, state, handleInputChange }: DayListProps) {
   );
 }
 
-export default InputColumn;
+export default InputCol;
