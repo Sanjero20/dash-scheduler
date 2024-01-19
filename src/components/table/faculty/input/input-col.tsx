@@ -2,11 +2,15 @@ import { DAYS } from "@/constants/initial";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
 import { ChangeEvent, Fragment } from "react";
+import TextAreaAutoSize from "react-textarea-autosize";
 
 interface DayListProps {
   stateIndex: number;
   state: ISchedule[];
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
+  handleInputChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number,
+  ) => void;
 }
 
 function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
@@ -36,8 +40,9 @@ function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
                 : ""
             }
           >
-            <input
-              type="text"
+            <TextAreaAutoSize
+              className="h-full w-full resize-none text-center"
+              minRows={2}
               name={`${day}-room`}
               value={state[stateIndex].schedules[index].room}
               onChange={(e) => handleInputChange(e, stateIndex)}

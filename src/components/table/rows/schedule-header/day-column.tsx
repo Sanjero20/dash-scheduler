@@ -11,7 +11,7 @@ function DayList({ category }: Props) {
       {DAYS.map((day, index) => (
         <Fragment key={index}>
           <td className="w-24">{day}</td>
-          <td className="w-16">{category}</td>
+          <td className="w-24">{category}</td>
         </Fragment>
       ))}
     </>

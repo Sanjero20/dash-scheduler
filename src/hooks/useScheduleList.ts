@@ -40,7 +40,7 @@ function useScheduleList() {
   const [state, dispatch] = useReducer(scheduleReducer, initialState);
 
   const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     index: number,
   ) => {
     const { value, name } = e.target;

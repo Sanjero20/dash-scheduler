@@ -41,8 +41,6 @@ function FacultySchedule() {
     dispatch({ type: "SET_ALL", value: schedules });
   }, [setSchedules]);
 
-  console.log(getSchedules());
-
   return (
     <>
       {SCHEDULES.map((schedule, index) => (
