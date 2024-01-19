@@ -1,3 +1,5 @@
+import ClassSchedule from "@/components/table/class-section/class-section-schedule";
+import SelectSection from "@/components/table/class-section/select-section";
 import MainTable from "@/components/table/root";
 import CollegeInfo from "@/components/table/rows/metadata/college-info";
 import LogoRevision from "@/components/table/rows/metadata/logo-revision";
@@ -17,9 +19,10 @@ function ClassSchedulePage() {
 
         <TableTitle title="Class Schedule" />
         <CollegeInfo />
-        <ScheduleInfo category="Section" dropdown />
+        <ScheduleInfo category="Section" dropdown={<SelectSection />} />
 
         <ScheduleHeader category="RM" />
+        <ClassSchedule />
       </MainTable>
     </div>
   );
