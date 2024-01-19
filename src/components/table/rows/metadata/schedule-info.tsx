@@ -5,7 +5,7 @@ interface ScheduleInfoProps {
 
 function ScheduleInfo({ category, dropdown }: ScheduleInfoProps) {
   return (
-    <tr>
+    <tr className="h-10">
       <td colSpan={1}>{category}: </td>
       <td colSpan={9}>{dropdown}</td>
       <td>Semester:</td>

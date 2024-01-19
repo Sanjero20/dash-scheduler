@@ -55,7 +55,7 @@ function FacultySchedule() {
               handleInputChange={handleInputChange}
             />
 
-            {index < 8 && (
+            {index < 9 && (
               <>
                 <td></td>
                 <td></td>
@@ -72,7 +72,7 @@ function FacultySchedule() {
               handleInputChange={handleInputChange}
             />
 
-            {index < 7 && (
+            {index < 8 && (
               <>
                 <td></td>
                 <td></td>
@@ -81,15 +81,15 @@ function FacultySchedule() {
             )}
 
             {/* Columns for the names in the right side of the table */}
-            {index == 7 && (
+            {index == 8 && (
               <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
             )}
 
-            {index == 9 && (
+            {index == 10 && (
               <ColumnName rowSpan={6} name="" title="Dean CEAFA" />
             )}
 
-            {index == 12 && (
+            {index == 13 && (
               <ColumnName
                 rowSpan={9}
                 name=""

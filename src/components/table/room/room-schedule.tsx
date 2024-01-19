@@ -39,7 +39,7 @@ function RoomSchedule() {
               handleInputChange={handleInputChange}
             />
 
-            {index < 4 && (
+            {index < 5 && (
               <>
                 <td></td>
                 <td></td>
@@ -48,15 +48,15 @@ function RoomSchedule() {
             )}
 
             {/* Columns for the names in the right side of the table */}
-            {index == 4 && (
+            {index == 5 && (
               <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
             )}
 
-            {index == 6 && (
+            {index == 7 && (
               <ColumnName rowSpan={4} name="" title="Dean CEAFA" />
             )}
 
-            {index == 8 && (
+            {index == 9 && (
               <ColumnName
                 rowSpan={10}
                 name=""
@@ -73,7 +73,7 @@ function RoomSchedule() {
               handleInputChange={handleInputChange}
             />
 
-            {index < 4 && (
+            {index < 5 && (
               <>
                 <td></td>
                 <td></td>

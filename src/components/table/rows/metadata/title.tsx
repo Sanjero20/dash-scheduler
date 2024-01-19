@@ -4,7 +4,7 @@ interface TableTitleProps {
 
 function TableTitle({ title }: TableTitleProps) {
   return (
-    <tr>
+    <tr className="h-10">
       <td colSpan={19} className="w-full text-center font-bold uppercase">
         {title}
       </td>
