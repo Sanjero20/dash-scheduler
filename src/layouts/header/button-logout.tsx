@@ -8,7 +8,7 @@ function ButtonLogout() {
     <Button
       variant={"destructive"}
       onClick={() => navigate("/login")}
-      className="rounded-xl"
+      className="w-24 rounded-xl"
     >
       Logout
     </Button>

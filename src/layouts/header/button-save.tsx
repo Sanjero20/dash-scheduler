@@ -3,13 +3,18 @@ import { useToast } from "@/components/ui/use-toast";
 import { uploadSchedules } from "@/services/api/faculty";
 import { useScheduleStore } from "@/stores/schedule";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useState } from "react";
 
 function ButtonSave() {
   const { getSchedules, setSchedules } = useScheduleStore();
 
+  const [isSaving, setIsSaving] = useState(false);
+
   const { toast } = useToast();
 
   const handleSave = async () => {
+    setIsSaving(true);
+
     const schedules = getSchedules();
     const response = await uploadSchedules(schedules);
 
@@ -30,12 +35,17 @@ function ButtonSave() {
       });
     }
 
-    console.log(response);
+    setIsSaving(false);
   };
 
   return (
-    <Button variant={"secondary"} onClick={handleSave}>
-      Save
+    <Button
+      variant={"secondary"}
+      onClick={handleSave}
+      disabled={isSaving}
+      className="w-24"
+    >
+      {isSaving ? "Saving..." : "Save"}
     </Button>
   );
 }
