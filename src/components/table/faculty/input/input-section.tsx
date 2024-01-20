@@ -9,6 +9,8 @@ interface Props {
 }
 
 function InputSection({ stateIndex, state, handleInputChange }: Props) {
+  const schedulesValue = state[stateIndex].schedules;
+
   return (
     <>
       {DAYS.map((day, index) => (
@@ -20,6 +22,7 @@ function InputSection({ stateIndex, state, handleInputChange }: Props) {
               value={state[stateIndex].schedules[index].section}
               onChange={(e) => handleInputChange(e, stateIndex)}
               tabIndex={index}
+              disabled={!schedulesValue[index].initials}
             />
           </td>
         </Fragment>

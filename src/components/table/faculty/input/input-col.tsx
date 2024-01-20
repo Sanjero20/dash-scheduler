@@ -16,6 +16,8 @@ interface DayListProps {
 function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
   const { getSchedules } = useScheduleStore();
 
+  const schedulesValue = state[stateIndex].schedules;
+
   return (
     <>
       {DAYS.map((day, index) => (
@@ -25,8 +27,9 @@ function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
             <input
               type="text"
               name={`${day}-course`}
-              value={state[stateIndex].schedules[index].course}
+              value={schedulesValue[index].course}
               onChange={(e) => handleInputChange(e, stateIndex)}
+              disabled={!schedulesValue[index].initials}
               tabIndex={index}
             />
           </td>
@@ -46,6 +49,7 @@ function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
               name={`${day}-room`}
               value={state[stateIndex].schedules[index].room}
               onChange={(e) => handleInputChange(e, stateIndex)}
+              disabled={!schedulesValue[index].initials}
               tabIndex={index}
             />
           </td>
