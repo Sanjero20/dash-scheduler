@@ -1,8 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import { userRoutes } from "./user.routes";
 
-import LoginPage from "@/pages/login";
+import AdminLayout from "@/layouts/admin-layout";
 import UserLayout from "@/layouts/user-layout";
+
+import AdminHome from "@/pages/admin";
+import LoginPage from "@/pages/login";
 
 export const routes = createBrowserRouter([
   {
@@ -11,8 +14,13 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <>Admin page</>,
-    // children: []
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdminHome />,
+      },
+    ],
   },
   {
     path: "/",

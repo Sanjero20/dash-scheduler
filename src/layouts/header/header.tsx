@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import ButtonLogout from "./button-logout";
+import ButtonLogout from "../../components/button-logout";
 import ButtonSave from "./button-save";
 import ButtonPrint from "./button-print";
 
