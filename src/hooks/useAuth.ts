@@ -25,6 +25,10 @@ function useAuth() {
     if (permission == "admin") {
       navigate("/admin", { replace: true });
     }
+
+    if (permission == "user") {
+      navigate("/", { replace: true });
+    }
   }, []);
 
   return permission;
