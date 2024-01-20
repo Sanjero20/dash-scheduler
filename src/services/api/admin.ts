@@ -1,4 +1,4 @@
-import { IAccount } from "@/types/api";
+import { IAccount, IFaculty } from "@/types/api";
 import { api } from "../config";
 
 export async function getAccounts(): Promise<IAccount[]> {
@@ -12,9 +12,11 @@ export async function createAccount(username: string, password: string) {
   return await response.data;
 }
 
-export async function getFaculties() {
+export async function getFaculties(): Promise<IFaculty[]> {
   const response = await api.get("faculties");
   const faculties = await response.data;
+
+  console.log(faculties);
   return faculties.rows;
 }
 
