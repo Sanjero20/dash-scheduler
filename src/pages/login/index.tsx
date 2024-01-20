@@ -71,6 +71,7 @@ function LoginPage() {
             Password
           </label>
           <Input
+            type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
