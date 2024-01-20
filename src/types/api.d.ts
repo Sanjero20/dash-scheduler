@@ -17,3 +17,11 @@ export interface IFaculty {
   name: string;
   initials: string;
 }
+
+export interface IAccount {
+  id: number;
+  username: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Data;
+}
