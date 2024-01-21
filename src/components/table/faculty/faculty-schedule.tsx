@@ -9,6 +9,7 @@ import InputSection from "./input/input-section";
 import InputScheduleState from "./input/input-schedule-state";
 
 import { getFormattedShedule } from "@/services/api/faculty";
+import { useScheduleState } from "@/stores/scheduleState";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
 import useScheduleList from "@/hooks/useScheduleList";
@@ -22,6 +23,7 @@ interface RightValues {
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
   const { schedules, setSchedules } = useScheduleStore();
+  const { scheduleState } = useScheduleState();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
@@ -40,6 +42,10 @@ function FacultySchedule() {
 
     fetchData();
   }, [searchParams]);
+
+  useEffect(() => {
+    console.log(scheduleState);
+  }, [scheduleState]);
 
   // copy state globally
   useEffect(() => {
@@ -68,7 +74,7 @@ function FacultySchedule() {
     }
 
     // another big brain move ooohoohohohh~
-    const unique: RightValues[] = [];
+    let unique: RightValues[] = [];
     for (let i = 0; i < formatted.length; i++) {
       if (
         !unique.find(
