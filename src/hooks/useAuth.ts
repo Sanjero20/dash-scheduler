@@ -19,15 +19,6 @@ function useAuth() {
     if (!token || !permission) {
       setPermission(null);
       navigate("/login", { replace: true });
-      return;
-    }
-
-    if (permission == "admin") {
-      navigate("/admin", { replace: true });
-    }
-
-    if (permission == "user") {
-      navigate("/", { replace: true });
     }
   }, []);
 

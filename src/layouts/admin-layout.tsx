@@ -1,9 +1,18 @@
-import { Outlet } from "react-router-dom";
-import useAuth from "@/hooks/useAuth";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import ButtonLogout from "../components/button-logout";
+import useAuth from "@/hooks/useAuth";
 
 function AdminLayout() {
   const permission = useAuth();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (permission === "user") {
+      navigate("/");
+    }
+  });
 
   if (permission !== "admin") return;
 
