@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SCHEDULES } from "@/constants/initial";
 
@@ -9,12 +9,20 @@ import InputSection from "./input/input-section";
 
 import { getFormattedShedule } from "@/services/api/faculty";
 import { useScheduleStore } from "@/stores/schedule";
+import { ISchedule } from "@/types/api";
 import useScheduleList from "@/hooks/useScheduleList";
+
+interface RightValues {
+  subject: string;
+  section: string;
+}
 
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
   const { getSchedules, setSchedules } = useScheduleStore();
   const [searchParams] = useSearchParams();
+  const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
+  const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues>();
 
   // fetch data base on userId
   useEffect(() => {
@@ -34,12 +42,46 @@ function FacultySchedule() {
   // copy state globally
   useEffect(() => {
     setSchedules(state);
+    schedDetailsLazyAlgo(state);
   }, [state]);
 
   useEffect(() => {
     const schedules = getSchedules();
     dispatch({ type: "SET_ALL", value: schedules });
   }, [setSchedules]);
+
+  const schedDetailsLazyAlgo = function (state: ISchedule[]) {
+    // stackleague big-brain solution
+    const formatted: RightValues[] = [];
+    for (let i = 0; i < state.length; i++) {
+      for (let j = 0; j < state[i].schedules.length; j++) {
+        const schedule = state[i].schedules[j];
+        if (schedule.course === "" || schedule.section === "") continue;
+
+        formatted.push({
+          section: schedule.section,
+          subject: schedule.course,
+        });
+      }
+    }
+
+    // another big brain move ooohoohohohh~
+    let unique: RightValues[] = [];
+    for (let i = 0; i < formatted.length; i++) {
+      if (
+        !unique.find(
+          (data) =>
+            data.section === formatted[i].section &&
+            data.subject === formatted[i].subject,
+        )
+      )
+        unique.push(formatted[i]);
+    }
+
+    unique.sort((a: RightValues, b: RightValues) => {
+      return a.section.localeCompare(b.section);
+    });
+  };
 
   return (
     <>
@@ -57,9 +99,9 @@ function FacultySchedule() {
 
             {index < 9 && (
               <>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>a</td>
+                <td>b</td>
+                <td>c</td>
               </>
             )}
           </tr>
@@ -74,9 +116,9 @@ function FacultySchedule() {
 
             {index < 8 && (
               <>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>d</td>
+                <td>e</td>
+                <td>f</td>
               </>
             )}
 
