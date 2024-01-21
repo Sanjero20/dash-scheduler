@@ -86,3 +86,8 @@ export async function saveScheduleState(bulkData: IScheduleRight[]) {
   const response = await api.post("/details/schedule-state/bulk", bulkData);
   return response.data;
 }
+
+export async function getScheduleState(initials: string) {
+  const response = await api.get(`/details/schedule-state/${initials}`);
+  return response.data;
+}

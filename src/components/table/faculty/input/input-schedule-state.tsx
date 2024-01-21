@@ -1,7 +1,12 @@
 import { IScheduleRight } from "@/types/api";
 import { useScheduleState } from "@/stores/scheduleState";
 
-function InputScheduleState({ course, initials, section }: IScheduleRight) {
+function InputScheduleState({
+  course,
+  initials,
+  section,
+  status,
+}: IScheduleRight) {
   const { scheduleState, setStateSchedule } = useScheduleState();
 
   // checks for duplication
@@ -32,6 +37,7 @@ function InputScheduleState({ course, initials, section }: IScheduleRight) {
       onChange={(e) =>
         handleStore({ course, initials, section, status: e.target.value })
       }
+      value={status ? status : ""}
     />
   );
 }

@@ -8,7 +8,7 @@ import InputCol from "./input/input-col";
 import InputSection from "./input/input-section";
 import InputScheduleState from "./input/input-schedule-state";
 
-import { getFormattedShedule } from "@/services/api/faculty";
+import { getFormattedShedule, getScheduleState } from "@/services/api/faculty";
 import { useScheduleState } from "@/stores/scheduleState";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
@@ -18,12 +18,13 @@ interface RightValues {
   subject: string;
   section: string;
   initials: string;
+  status?: string;
 }
 
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
   const { schedules, setSchedules } = useScheduleStore();
-  const { scheduleState } = useScheduleState();
+  const { scheduleState, setStateSchedule } = useScheduleState();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
@@ -35,23 +36,57 @@ function FacultySchedule() {
       setSchedules([]);
       return;
     }
+
     const fetchData = async () => {
       const data = await getFormattedShedule(parseInt(userId));
+      const schedState = await getScheduleState(data[0].schedules[0].initials);
+
       dispatch({ type: "SET_ALL", value: data });
+      setStateSchedule(schedState.rows);
     };
 
     fetchData();
   }, [searchParams]);
 
-  useEffect(() => {
-    console.log(scheduleState);
-  }, [scheduleState]);
-
   // copy state globally
   useEffect(() => {
     setSchedules(state);
     schedDetailsLazyAlgo(state);
-  }, [state]);
+
+    console.log(scheduleState);
+    // scheduleState.forEach((state) => {
+    //   const newOddState = uniqueEvenValues?.map((newval) => {
+    //     if (
+    //       newval.initials === state.initials &&
+    //       newval.section === state.section &&
+    //       newval.subject === state.course
+    //     ) {
+    //       return {
+    //         ...newval,
+    //         status: state.status,
+    //       };
+    //     }
+    //     return newval;
+    //   });
+
+    //   const newEvenState = uniqueEvenValues?.map((newval) => {
+    //     if (
+    //       newval.initials === state.initials &&
+    //       newval.section === state.section &&
+    //       newval.subject === state.course
+    //     ) {
+    //       return {
+    //         ...newval,
+    //         status: state.status,
+    //       };
+    //     }
+    //     return newval;
+    //   });
+
+    //   setUniqueOddValues(newOddState);
+    //   setUniqueEvenValues(newEvenState);
+    // });
+  }, [state, scheduleState]);
 
   useEffect(() => {
     dispatch({ type: "SET_ALL", value: schedules });
@@ -144,6 +179,11 @@ function FacultySchedule() {
                       section={
                         uniqueEvenValues && index < uniqueEvenValues.length
                           ? uniqueEvenValues[index].section
+                          : ""
+                      }
+                      status={
+                        uniqueEvenValues && index < uniqueEvenValues.length
+                          ? uniqueEvenValues[index].status
                           : ""
                       }
                     />
