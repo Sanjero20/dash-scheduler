@@ -6,8 +6,10 @@ import { SCHEDULES } from "@/constants/initial";
 import ColumnName from "../rows/schedule-list/names";
 import InputCol from "./input/input-col";
 import InputSection from "./input/input-section";
+import InputScheduleState from "./input/input-schedule-state";
 
 import { getFormattedShedule } from "@/services/api/faculty";
+import { useScheduleState } from "@/stores/scheduleState";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
 import useScheduleList from "@/hooks/useScheduleList";
@@ -15,11 +17,13 @@ import useScheduleList from "@/hooks/useScheduleList";
 interface RightValues {
   subject: string;
   section: string;
+  initials: string;
 }
 
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
   const { schedules, setSchedules } = useScheduleStore();
+  const { scheduleState } = useScheduleState();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
@@ -38,6 +42,10 @@ function FacultySchedule() {
 
     fetchData();
   }, [searchParams]);
+
+  useEffect(() => {
+    console.log(scheduleState);
+  }, [scheduleState]);
 
   // copy state globally
   useEffect(() => {
@@ -60,12 +68,13 @@ function FacultySchedule() {
         formatted.push({
           section: schedule.section,
           subject: schedule.course,
+          initials: schedule.initials,
         });
       }
     }
 
     // another big brain move ooohoohohohh~
-    const unique: RightValues[] = [];
+    let unique: RightValues[] = [];
     for (let i = 0; i < formatted.length; i++) {
       if (
         !unique.find(
@@ -120,7 +129,25 @@ function FacultySchedule() {
                       ? uniqueEvenValues[index].section
                       : ""}
                   </td>
-                  <td></td>
+                  <td>
+                    <InputScheduleState
+                      course={
+                        uniqueEvenValues && index < uniqueEvenValues.length
+                          ? uniqueEvenValues[index].subject
+                          : ""
+                      }
+                      initials={
+                        uniqueEvenValues && index < uniqueEvenValues.length
+                          ? uniqueEvenValues[index].initials
+                          : ""
+                      }
+                      section={
+                        uniqueEvenValues && index < uniqueEvenValues.length
+                          ? uniqueEvenValues[index].section
+                          : ""
+                      }
+                    />
+                  </td>
                 </>
               )}
             </tr>
@@ -145,7 +172,25 @@ function FacultySchedule() {
                       ? uniqueOddValues[index].section
                       : ""}
                   </td>
-                  <td></td>
+                  <td>
+                    <InputScheduleState
+                      course={
+                        uniqueOddValues && index < uniqueOddValues.length
+                          ? uniqueOddValues[index].subject
+                          : ""
+                      }
+                      initials={
+                        uniqueOddValues && index < uniqueOddValues.length
+                          ? uniqueOddValues[index].initials
+                          : ""
+                      }
+                      section={
+                        uniqueOddValues && index < uniqueOddValues.length
+                          ? uniqueOddValues[index].section
+                          : ""
+                      }
+                    />
+                  </td>
                 </>
               )}
 

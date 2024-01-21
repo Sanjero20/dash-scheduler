@@ -42,3 +42,10 @@ export interface IOverallSummary {
   academicRank: string;
   consultationHours: string;
 }
+
+export interface IScheduleRight {
+  initials: string;
+  course: string;
+  section: string;
+  status?: string;
+}

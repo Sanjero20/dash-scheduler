@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ISchedule, IFaculty, ITotal, IOverallSummary } from "@/types/api";
+import { ISchedule, IFaculty, ITotal, IOverallSummary, IScheduleRight } from "@/types/api";
 import { api } from "../config";
 
 export async function getSchedulesByUser(user_id: number) {
@@ -80,4 +80,9 @@ export async function saveFacultyFooter(
   const response = await api.post("/details/footer", { id, total, summary });
   const data = response.data;
   console.log(data);
+}
+
+export async function saveScheduleState(bulkData: IScheduleRight[]) {
+  const response = await api.post("/details/schedule-state/bulk", bulkData);
+  return response.data;
 }

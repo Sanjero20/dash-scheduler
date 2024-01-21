@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { saveFacultyFooter, uploadSchedules } from "@/services/api/faculty";
+import {
+  saveFacultyFooter,
+  saveScheduleState,
+  uploadSchedules,
+} from "@/services/api/faculty";
 import { useFacultyStore } from "@/stores/faculty";
 import { useScheduleStore } from "@/stores/schedule";
+import { useScheduleState } from "@/stores/scheduleState";
 import { CheckCircle, XCircle } from "lucide-react";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -11,6 +16,7 @@ function ButtonSave() {
   const [isSaving, setIsSaving] = useState(false);
 
   const { schedules, setSchedules } = useScheduleStore();
+  const { scheduleState } = useScheduleState();
   const { total, summary } = useFacultyStore();
   const [searchParams] = useSearchParams();
 
@@ -25,6 +31,7 @@ function ButtonSave() {
 
     const response = await uploadSchedules(schedules);
     await saveFacultyFooter(id, total, summary);
+    await saveScheduleState(scheduleState);
 
     if (response.conflicts) {
       toast({
