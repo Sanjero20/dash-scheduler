@@ -3,9 +3,10 @@ import { ChangeEvent } from "react";
 interface Props {
   list: string[];
   handler: React.Dispatch<React.SetStateAction<string[]>>;
+  disabled?: boolean;
 }
 
-function InputTeachingHours({ list, handler }: Props) {
+function InputTeachingHours({ list, handler, disabled = false }: Props) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
     const updatedList = list.map((existingValue, i) =>
@@ -26,6 +27,7 @@ function InputTeachingHours({ list, handler }: Props) {
               type="text"
               value={list[index]}
               onChange={(e) => handleChange(e, index)}
+              disabled={disabled}
             />
           )}
         </td>

@@ -1,5 +1,5 @@
 import { IOverallSummary } from "@/types/api";
-import { ChangeEvent, useEffect, useReducer } from "react";
+import { ChangeEvent, useEffect, useReducer, useState } from "react";
 import { initialSummary, useFacultyStore } from "@/stores/faculty";
 import { getFacultyFooter } from "@/services/api/faculty";
 import { useSearchParams } from "react-router-dom";
@@ -24,6 +24,7 @@ function FacultySummary() {
   const { setSummary } = useFacultyStore();
 
   const [searchParams] = useSearchParams();
+  const [userId, setUserId] = useState(searchParams.get("userId") || "");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,6 +34,9 @@ function FacultySummary() {
   useEffect(() => {
     const fetchData = async () => {
       const id = searchParams.get("userId");
+
+      setUserId(id || "");
+
       if (!id) return;
       const { summary } = await getFacultyFooter(id);
       dispatch({ type: "SET_ALL", value: summary });
@@ -56,6 +60,7 @@ function FacultySummary() {
             value={state.designation}
             onChange={handleInputChange}
             style={{ textAlign: "start" }}
+            disabled={userId == ""}
           />
         </td>
       </tr>
@@ -68,6 +73,7 @@ function FacultySummary() {
             name="preparations"
             value={state.preparations}
             onChange={handleInputChange}
+            disabled={userId == ""}
           />
         </td>
 
@@ -78,6 +84,7 @@ function FacultySummary() {
             name="regularLoad"
             value={state.regularLoad}
             onChange={handleInputChange}
+            disabled={userId == ""}
           />
         </td>
 
@@ -88,6 +95,7 @@ function FacultySummary() {
             name="academicRank"
             value={state.academicRank}
             onChange={handleInputChange}
+            disabled={userId == ""}
           />
         </td>
       </tr>
@@ -100,6 +108,7 @@ function FacultySummary() {
             name="hoursPerWeek"
             value={state.hoursPerWeek}
             onChange={handleInputChange}
+            disabled={userId == ""}
           />
         </td>
 
@@ -110,6 +119,7 @@ function FacultySummary() {
             name="overload"
             value={state.overload}
             onChange={handleInputChange}
+            disabled={userId == ""}
           />
         </td>
 
@@ -120,6 +130,7 @@ function FacultySummary() {
             name="consultationHours"
             value={state.consultationHours}
             onChange={handleInputChange}
+            disabled={userId == ""}
           />
         </td>
       </tr>

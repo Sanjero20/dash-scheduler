@@ -5,9 +5,16 @@ interface Props {
   list: string[];
   handler: React.Dispatch<React.SetStateAction<string[]>>;
   children?: React.ReactNode;
+  disabled?: boolean;
 }
 
-function InputFields({ title, list, handler, children }: Props) {
+function InputFields({
+  title,
+  list,
+  handler,
+  children,
+  disabled = false,
+}: Props) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
     const currentTimes = list.map((day, i) => (i == index ? value : day));
@@ -21,7 +28,11 @@ function InputFields({ title, list, handler, children }: Props) {
       {/* map by day */}
       {list.map((_day, index) => (
         <td key={index} colSpan={2}>
-          <input value={list[index]} onChange={(e) => handleChange(e, index)} />
+          <input
+            value={list[index]}
+            onChange={(e) => handleChange(e, index)}
+            disabled={disabled}
+          />
         </td>
       ))}
 
