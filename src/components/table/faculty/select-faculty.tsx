@@ -1,7 +1,7 @@
-import { getFaculties } from "@/services/api/faculty";
-import { IFaculty } from "@/types/api";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { getFaculties } from "@/services/api/faculty";
+import { IFaculty } from "@/types/api";
 
 function SelectFaculty() {
   const [faculties, setFaculties] = useState<IFaculty[]>([]);

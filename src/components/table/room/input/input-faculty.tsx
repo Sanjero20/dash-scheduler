@@ -1,6 +1,6 @@
-import { DAYS } from "@/constants/initial";
-import { ISchedule } from "@/types/api";
 import { ChangeEvent, Fragment } from "react";
+import { ISchedule } from "@/types/api";
+import { DAYS } from "@/constants/initial";
 
 interface Props {
   stateIndex: number;
