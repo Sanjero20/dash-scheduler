@@ -1,5 +1,6 @@
 import { getFaculties } from "@/services/api/admin";
 import { useQuery } from "@tanstack/react-query";
+import { DeleteFaculty } from "@/components/button-delete";
 
 function FacultyList() {
   const { data } = useQuery({
@@ -13,7 +14,8 @@ function FacultyList() {
       {data &&
         data.map((account) => (
           <p key={account.id}>
-            {account.name} - {account.initials}
+            {account.name} - {account.initials}{" "}
+            <DeleteFaculty initials={account.initials} />
           </p>
         ))}
     </div>

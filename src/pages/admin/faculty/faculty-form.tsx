@@ -35,7 +35,12 @@ function FacultyForm() {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="w-full">
+    <form
+      onSubmit={handleFormSubmit}
+      className="flex w-1/3 w-full flex-col gap-2"
+    >
+      <h1 className="text-lg font-bold">Faculty Form</h1>
+
       <Input
         value={name}
         onChange={(e) => setName(e.target.value)}

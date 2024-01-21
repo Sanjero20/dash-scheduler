@@ -12,6 +12,11 @@ export async function createAccount(username: string, password: string) {
   return await response.data;
 }
 
+export async function deleteAccount(id: number) {
+  const response = await api.delete(`/users/remove/${id}`);
+  return response;
+}
+
 export async function getFaculties(): Promise<IFaculty[]> {
   const response = await api.get("faculties");
   const faculties = await response.data;
