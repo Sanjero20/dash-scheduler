@@ -22,7 +22,7 @@ function FacultySchedule() {
   const { getSchedules, setSchedules } = useScheduleStore();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
-  const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues>();
+  const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
 
   // fetch data base on userId
   useEffect(() => {
@@ -81,66 +81,95 @@ function FacultySchedule() {
     unique.sort((a: RightValues, b: RightValues) => {
       return a.section.localeCompare(b.section);
     });
+
+    const uniqueOdd: RightValues[] = [];
+    const uniqueEven: RightValues[] = [];
+
+    for (let i = 0; i < unique.length; i++) {
+      if (i % 2 === 0) uniqueEven.push(unique[i]);
+      else uniqueOdd.push(unique[i]);
+    }
+
+    setUniqueEvenValues(uniqueEven);
+    setUniqueOddValues(uniqueOdd);
   };
 
   return (
     <>
-      {SCHEDULES.map((schedule, index) => (
-        <Fragment key={index}>
-          {/* template */}
-          <tr className="h-8 text-center">
-            <td rowSpan={2}>{schedule}</td>
+      {SCHEDULES.map((schedule, index) => {
+        return (
+          <Fragment key={index}>
+            {/* template */}
+            <tr className="h-8 text-center">
+              <td rowSpan={2}>{schedule}</td>
 
-            <InputCol
-              stateIndex={index}
-              state={state}
-              handleInputChange={handleInputChange}
-            />
-
-            {index < 9 && (
-              <>
-                <td>a</td>
-                <td>b</td>
-                <td>c</td>
-              </>
-            )}
-          </tr>
-
-          {/* sections */}
-          <tr className="h-8 w-fit text-center">
-            <InputSection
-              stateIndex={index}
-              state={state}
-              handleInputChange={handleInputChange}
-            />
-
-            {index < 8 && (
-              <>
-                <td>d</td>
-                <td>e</td>
-                <td>f</td>
-              </>
-            )}
-
-            {/* Columns for the names in the right side of the table */}
-            {index == 8 && (
-              <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
-            )}
-
-            {index == 10 && (
-              <ColumnName rowSpan={6} name="" title="Dean CEAFA" />
-            )}
-
-            {index == 13 && (
-              <ColumnName
-                rowSpan={9}
-                name=""
-                title="Executive Director, Main II"
+              <InputCol
+                stateIndex={index}
+                state={state}
+                handleInputChange={handleInputChange}
               />
-            )}
-          </tr>
-        </Fragment>
-      ))}
+
+              {index < 9 && (
+                <>
+                  <td>
+                    {uniqueEvenValues && index < uniqueEvenValues.length
+                      ? uniqueEvenValues[index].subject
+                      : ""}
+                  </td>
+                  <td>
+                    {uniqueEvenValues && index < uniqueEvenValues.length
+                      ? uniqueEvenValues[index].section
+                      : ""}
+                  </td>
+                  <td></td>
+                </>
+              )}
+            </tr>
+
+            {/* sections */}
+            <tr className="h-8 w-fit text-center">
+              <InputSection
+                stateIndex={index}
+                state={state}
+                handleInputChange={handleInputChange}
+              />
+
+              {index < 8 && (
+                <>
+                  <td>
+                    {uniqueOddValues && index < uniqueOddValues.length
+                      ? uniqueOddValues[index].subject
+                      : ""}
+                  </td>
+                  <td>
+                    {uniqueOddValues && index < uniqueOddValues.length
+                      ? uniqueOddValues[index].section
+                      : ""}
+                  </td>
+                  <td></td>
+                </>
+              )}
+
+              {/* Columns for the names in the right side of the table */}
+              {index == 8 && (
+                <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
+              )}
+
+              {index == 10 && (
+                <ColumnName rowSpan={6} name="" title="Dean CEAFA" />
+              )}
+
+              {index == 13 && (
+                <ColumnName
+                  rowSpan={9}
+                  name=""
+                  title="Executive Director, Main II"
+                />
+              )}
+            </tr>
+          </Fragment>
+        );
+      })}
     </>
   );
 }
