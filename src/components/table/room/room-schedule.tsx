@@ -1,11 +1,13 @@
-import { SCHEDULES } from "@/constants/initial";
-import useScheduleList from "@/hooks/useScheduleList";
 import { Fragment, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+
 import ColumnName from "../rows/schedule-list/names";
 import InputCol from "./input/input-col";
 import InputFaculty from "./input/input-faculty";
+
+import useScheduleList from "@/hooks/useScheduleList";
 import { getRoomDataByCode } from "@/services/api/room";
+import { SCHEDULES } from "@/constants/initial";
 
 function RoomSchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();

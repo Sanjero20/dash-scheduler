@@ -27,6 +27,13 @@ export async function uploadSchedules(data: ISchedule[]) {
   }
 }
 
+export async function getFacultySummary(id: string) {
+  const response = await api.get(`/details/schedules/${id}`);
+  const data = await response.data;
+  return data;
+}
+
+// ! duplicate method (also included in ./admin.ts)
 export async function getFaculties(): Promise<IFaculty[]> {
   const response = await api.get("/faculties");
   const faculties = response.data;
