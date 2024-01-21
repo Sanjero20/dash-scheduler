@@ -1,4 +1,4 @@
-import { getFaculties } from "@/services/api/admin";
+import { getFaculties } from "@/services/api/faculty";
 import { useQuery } from "@tanstack/react-query";
 import { DeleteFaculty } from "@/components/button-delete";
 
