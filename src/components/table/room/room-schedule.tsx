@@ -1,17 +1,27 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import ColumnName from "../rows/schedule-list/names";
 import InputCol from "./input/input-col";
 import InputFaculty from "./input/input-faculty";
+import { useScheduleStore } from "@/stores/schedule";
 
 import useScheduleList from "@/hooks/useScheduleList";
 import { getRoomDataByCode } from "@/services/api/room";
 import { SCHEDULES } from "@/constants/initial";
+import { ISchedule } from "@/types/api";
+
+interface RightValues {
+  subject: string;
+  section: string;
+}
 
 function RoomSchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
+  const { setSchedules } = useScheduleStore();
   const [searchParams] = useSearchParams();
+  const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
+  const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
 
   useEffect(() => {
     const id = searchParams.get("id");
@@ -26,6 +36,56 @@ function RoomSchedule() {
 
     fetchData();
   }, [searchParams]);
+
+  // copy state globally
+  useEffect(() => {
+    setSchedules(state);
+    schedDetailsLazyAlgo(state);
+  }, [state]);
+
+  const schedDetailsLazyAlgo = function (state: ISchedule[]) {
+    // stackleague big-brain solution
+    const formatted: RightValues[] = [];
+    for (let i = 0; i < state.length; i++) {
+      for (let j = 0; j < state[i].schedules.length; j++) {
+        const schedule = state[i].schedules[j];
+        if (schedule.course === "" || schedule.section === "") continue;
+
+        formatted.push({
+          section: schedule.section,
+          subject: schedule.course,
+        });
+      }
+    }
+
+    // another big brain move ooohoohohohh~
+    let unique: RightValues[] = [];
+    for (let i = 0; i < formatted.length; i++) {
+      if (
+        !unique.find(
+          (data) =>
+            data.section === formatted[i].section &&
+            data.subject === formatted[i].subject,
+        )
+      )
+        unique.push(formatted[i]);
+    }
+
+    unique.sort((a: RightValues, b: RightValues) => {
+      return a.section.localeCompare(b.section);
+    });
+
+    const uniqueOdd: RightValues[] = [];
+    const uniqueEven: RightValues[] = [];
+
+    for (let i = 0; i < unique.length; i++) {
+      if (i % 2 === 0) uniqueEven.push(unique[i]);
+      else uniqueOdd.push(unique[i]);
+    }
+
+    setUniqueEvenValues(uniqueEven);
+    setUniqueOddValues(uniqueOdd);
+  };
 
   return (
     <>
@@ -43,8 +103,16 @@ function RoomSchedule() {
 
             {index < 5 && (
               <>
-                <td></td>
-                <td></td>
+                <td>
+                  {uniqueEvenValues && index < uniqueEvenValues.length
+                    ? uniqueEvenValues[index].subject
+                    : ""}
+                </td>
+                <td>
+                  {uniqueEvenValues && index < uniqueEvenValues.length
+                    ? uniqueEvenValues[index].section
+                    : ""}
+                </td>
                 <td></td>
               </>
             )}
@@ -77,9 +145,19 @@ function RoomSchedule() {
 
             {index < 5 && (
               <>
-                <td></td>
-                <td></td>
-                <td></td>
+                <>
+                  <td>
+                    {uniqueOddValues && index < uniqueOddValues.length
+                      ? uniqueOddValues[index].subject
+                      : ""}
+                  </td>
+                  <td>
+                    {uniqueOddValues && index < uniqueOddValues.length
+                      ? uniqueOddValues[index].section
+                      : ""}
+                  </td>
+                  <td></td>
+                </>
               </>
             )}
           </tr>
