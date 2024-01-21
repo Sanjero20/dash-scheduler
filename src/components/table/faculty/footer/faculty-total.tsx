@@ -2,20 +2,15 @@ import { useState } from "react";
 
 import { DAYS } from "@/constants/initial";
 import InputFields from "./input-fields";
+import InputTeachingHours from "./input-teaching-hours";
 
 const initialValues = DAYS.map(() => "");
 
 function FacultyTotal() {
   const [officialTimes, setOfficialTimes] = useState(initialValues);
-  const [hours, setHours] = useState(["", "", "", "", ""]);
+  const [hours, setHours] = useState(initialValues);
   const [overtimeWithin, setOvertimeWithin] = useState(initialValues);
   const [overtimeOutside, setOvertimeOutside] = useState(initialValues);
-
-  console.clear();
-  // console.table(officialTimes);
-  console.table(hours);
-  // console.table(overtimeWithin);
-  // console.table(overtimeOutside);
 
   return (
     <>
@@ -25,16 +20,7 @@ function FacultyTotal() {
         handler={setOfficialTimes}
       />
 
-      <InputFields
-        title="No. of Teaching Hours"
-        list={hours}
-        handler={setHours}
-      >
-        <td colSpan={2} className="text-end font-bold">
-          TOTAL
-        </td>
-        <td colSpan={2}>{/*  */}</td>
-      </InputFields>
+      <InputTeachingHours list={hours} handler={setHours} />
 
       <InputFields
         title="Overtime Within"

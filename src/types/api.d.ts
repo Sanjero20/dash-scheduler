@@ -28,17 +28,17 @@ export interface IAccount {
 
 export interface ITotal {
   officialTime: string[];
-  teachingHours: number[];
+  teachingHours: string[];
   overtimeWithin: string[];
   overtimeOutside: string[];
 }
 
 export interface IOverallSummary {
   designation: string;
-  preparations: number;
-  hoursPerWeek: number;
-  regularLoad: number;
-  overload: number;
+  preparations: string;
+  hoursPerWeek: string;
+  regularLoad: string;
+  overload: string;
   academicRank: string;
   consultationHours: string;
 }
