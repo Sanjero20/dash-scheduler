@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ISchedule, IFaculty, ITotal, IOverallSummary, IScheduleRight } from "@/types/api";
+import {
+  ISchedule,
+  IFaculty,
+  ITotal,
+  IOverallSummary,
+  IScheduleRight,
+} from "@/types/api";
 import { api } from "../config";
+import { initialSummary, initialTotal } from "@/stores/faculty";
 
 export async function getSchedulesByUser(user_id: number) {
   const response = await api.get(`/schedules/user/${user_id}`);
@@ -50,7 +57,9 @@ export async function getFacultyFooter(id: string) {
 
   const data = responseData[responseData.length - 1];
 
-  console.log(data);
+  if (!data) {
+    return { total: initialTotal, summary: initialSummary };
+  }
 
   const total: ITotal = {
     officialTime: data.official_time,
