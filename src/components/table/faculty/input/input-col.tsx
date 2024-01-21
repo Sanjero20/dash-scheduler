@@ -23,7 +23,14 @@ function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
       {DAYS.map((day, index) => (
         <Fragment key={index}>
           {/*  */}
-          <td rowSpan={1}>
+          <td
+            rowSpan={1}
+            className={
+              schedules[stateIndex].schedules[index].conflicted
+                ? "bg-red-400"
+                : ""
+            }
+          >
             <input
               type="text"
               name={`${day}-course`}
