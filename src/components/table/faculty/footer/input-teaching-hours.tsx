@@ -15,8 +15,8 @@ function InputTeachingHours({ list, handler }: Props) {
   };
 
   return (
-    <tr>
-      <td className="text-sm">No. of Teaching Hours</td>
+    <tr className="text-sm">
+      <td>No. of Teaching Hours</td>
       {list.map((_item, index) => (
         <td key={index} colSpan={2}>
           {index == 5 ? (
