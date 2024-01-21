@@ -17,7 +17,7 @@ function AdminLayout() {
   if (permission !== "admin") return;
 
   return (
-    <div className="flex h-screen min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <header className="bg-black/80 p-2">
         <div className="container flex items-center justify-between">
           <h1 className="text-2xl font-bold text-white">DASH SCHEDULER</h1>
@@ -25,7 +25,7 @@ function AdminLayout() {
         </div>
       </header>
 
-      <main className="container h-full p-4">
+      <main className="container h-full overflow-hidden py-4">
         <Outlet />
       </main>
     </div>
