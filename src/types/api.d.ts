@@ -25,3 +25,20 @@ export interface IAccount {
   createdAt: Date;
   updatedAt: Data;
 }
+
+export interface ITotal {
+  officialTime: string[];
+  teachingHours: number[];
+  overtimeWithin: string[];
+  overtimeOutside: string[];
+}
+
+export interface IOverallSummary {
+  designation: string;
+  preparations: number;
+  hoursPerWeek: number;
+  regularLoad: number;
+  overload: number;
+  academicRank: string;
+  consultationHours: string;
+}

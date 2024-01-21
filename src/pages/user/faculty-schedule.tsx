@@ -6,8 +6,8 @@ import ScheduleInfo from "@/components/table/rows/metadata/schedule-info";
 import ScheduleHeader from "@/components/table/rows/schedule-header";
 import SelectFaculty from "@/components/table/faculty/select-faculty";
 import FacultySchedule from "@/components/table/faculty/faculty-schedule";
-import FacultySummary from "@/components/table/faculty/faculty-summary";
-import FacultyTotal from "@/components/table/faculty/faculty-total";
+import FacultySummary from "@/components/table/faculty/footer/faculty-summary";
+import FacultyTotal from "@/components/table/faculty/footer/faculty-total";
 
 function FacultySchedulePage() {
   return (
@@ -26,8 +26,8 @@ function FacultySchedulePage() {
 
         <ScheduleHeader category="room" />
         <FacultySchedule />
-        <FacultySummary />
         <FacultyTotal />
+        <FacultySummary />
       </MainTable>
     </div>
   );

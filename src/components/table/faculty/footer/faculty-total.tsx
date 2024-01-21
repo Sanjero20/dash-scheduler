@@ -1,32 +1,52 @@
+import { useState } from "react";
+
+import { DAYS } from "@/constants/initial";
+import InputFields from "./input-fields";
+
+const initialValues = DAYS.map(() => "");
+
 function FacultyTotal() {
+  const [officialTimes, setOfficialTimes] = useState(initialValues);
+  const [hours, setHours] = useState(["", "", "", "", ""]);
+  const [overtimeWithin, setOvertimeWithin] = useState(initialValues);
+  const [overtimeOutside, setOvertimeOutside] = useState(initialValues);
+
+  console.clear();
+  // console.table(officialTimes);
+  console.table(hours);
+  // console.table(overtimeWithin);
+  // console.table(overtimeOutside);
+
   return (
     <>
-      <tr className="text-sm">
-        <td className="uppercase">Designation: </td>
-        <td colSpan={14}></td>
-      </tr>
+      <InputFields
+        title="Official Time"
+        list={officialTimes}
+        handler={setOfficialTimes}
+      />
 
-      <tr className="text-xs uppercase">
-        <td colSpan={2}>no. of preparations: </td>
-        <td colSpan={3}></td>
+      <InputFields
+        title="No. of Teaching Hours"
+        list={hours}
+        handler={setHours}
+      >
+        <td colSpan={2} className="text-end font-bold">
+          TOTAL
+        </td>
+        <td colSpan={2}>{/*  */}</td>
+      </InputFields>
 
-        <td colSpan={2}>regular load: </td>
-        <td colSpan={3}></td>
+      <InputFields
+        title="Overtime Within"
+        list={overtimeWithin}
+        handler={setOvertimeWithin}
+      />
 
-        <td colSpan={2}>academic rank: </td>
-        <td colSpan={3}></td>
-      </tr>
-
-      <tr className="text-xs uppercase">
-        <td colSpan={2}>no. of hours per week: </td>
-        <td colSpan={3}></td>
-
-        <td colSpan={2}>overload: </td>
-        <td colSpan={3}></td>
-
-        <td colSpan={2}>consultation hour: </td>
-        <td colSpan={3}></td>
-      </tr>
+      <InputFields
+        title="Overtime Outside"
+        list={overtimeOutside}
+        handler={setOvertimeOutside}
+      />
     </>
   );
 }
