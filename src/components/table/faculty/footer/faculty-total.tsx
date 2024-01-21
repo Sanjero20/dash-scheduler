@@ -1,23 +1,32 @@
-import { useState } from "react";
-
-import { DAYS } from "@/constants/initial";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import InputFields from "./input-fields";
 import InputTeachingHours from "./input-teaching-hours";
-
-const initialValues = DAYS.map(() => "");
+import { initialValues, useFacultyStore } from "@/stores/faculty";
 
 function FacultyTotal() {
-  const [officialTimes, setOfficialTimes] = useState(initialValues);
+  const [officialTime, setOfficialTime] = useState(initialValues);
   const [hours, setHours] = useState(initialValues);
   const [overtimeWithin, setOvertimeWithin] = useState(initialValues);
   const [overtimeOutside, setOvertimeOutside] = useState(initialValues);
+
+  const { setTotal } = useFacultyStore();
+
+  useEffect(() => {
+    setTotal({
+      officialTime,
+      teachingHours: hours,
+      overtimeWithin,
+      overtimeOutside,
+    });
+  }, [officialTime, hours, overtimeWithin, overtimeOutside]);
 
   return (
     <>
       <InputFields
         title="Official Time"
-        list={officialTimes}
-        handler={setOfficialTimes}
+        list={officialTime}
+        handler={setOfficialTime}
       />
 
       <InputTeachingHours list={hours} handler={setHours} />

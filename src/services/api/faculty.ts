@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ISchedule, IFaculty } from "@/types/api";
+import { ISchedule, IFaculty, ITotal, IOverallSummary } from "@/types/api";
 import { api } from "../config";
 
 export async function getSchedulesByUser(user_id: number) {
@@ -33,7 +33,6 @@ export async function getFacultySummary(id: string) {
   return data;
 }
 
-// ! duplicate method (also included in ./admin.ts)
 export async function getFaculties(): Promise<IFaculty[]> {
   const response = await api.get("/faculties");
   const faculties = response.data;
@@ -43,4 +42,19 @@ export async function getFaculties(): Promise<IFaculty[]> {
 export async function deleteFaculty(initials: string) {
   const response = await api.delete(`/faculties/remove/${initials}`);
   return response;
+}
+
+export async function getFacultyFooter(id: string) {
+  const response = await api.get(`/details/footer/${id}`);
+  return await response.data;
+}
+
+export async function saveFacultyFooter(
+  id: string,
+  total: ITotal,
+  summary: IOverallSummary,
+) {
+  const response = await api.post("/details/footer", { id, total, summary });
+  const data = response.data;
+  console.log(data);
 }

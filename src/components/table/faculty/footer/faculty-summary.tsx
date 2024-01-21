@@ -1,5 +1,8 @@
 import { IOverallSummary } from "@/types/api";
-import { ChangeEvent, useReducer } from "react";
+import { ChangeEvent, useEffect, useReducer } from "react";
+import { initialSummary, useFacultyStore } from "@/stores/faculty";
+import { getFacultyFooter } from "@/services/api/faculty";
+import { useSearchParams } from "react-router-dom";
 
 type Action =
   | { type: "SET_ALL"; value: IOverallSummary }
@@ -16,26 +19,31 @@ const reducer = (state: IOverallSummary, action: Action) => {
   }
 };
 
-const initialState: IOverallSummary = {
-  designation: "",
-  preparations: "",
-  hoursPerWeek: "",
-  regularLoad: "",
-  overload: "",
-  academicRank: "",
-  consultationHours: "",
-};
-
 function FacultySummary() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialSummary);
+  const { setSummary } = useFacultyStore();
+
+  const [searchParams] = useSearchParams();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch({ type: "UPDATE_VALUE", key: name, value });
   };
 
-  console.clear();
-  console.table(state);
+  useEffect(() => {
+    const fetchData = async () => {
+      const id = searchParams.get("userId");
+      if (!id) return;
+      const summary = await getFacultyFooter(id);
+      console.log(summary);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setSummary(state);
+  }, [state]);
 
   return (
     <>
@@ -47,6 +55,7 @@ function FacultySummary() {
             name="designation"
             value={state.designation}
             onChange={handleInputChange}
+            style={{ textAlign: "start" }}
           />
         </td>
       </tr>

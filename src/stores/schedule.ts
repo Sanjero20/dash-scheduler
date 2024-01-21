@@ -8,13 +8,11 @@ interface States {
 
 interface Actions {
   setSchedules: (schedule: ISchedule[]) => void;
-  getSchedules: () => ISchedule[];
 }
 
 const initialData = createSchedulePerTime();
 
-export const useScheduleStore = create<States & Actions>((set, get) => ({
+export const useScheduleStore = create<States & Actions>((set) => ({
   schedules: initialData,
   setSchedules: (schedules) => set({ schedules }),
-  getSchedules: () => get().schedules,
 }));

@@ -35,7 +35,7 @@ function AccountForm() {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="flex w-1/3 flex-col gap-2">
+    <form onSubmit={handleFormSubmit} className="flex w-full flex-col gap-2">
       <h1 className="text-lg font-bold">Account Form</h1>
 
       <Input
