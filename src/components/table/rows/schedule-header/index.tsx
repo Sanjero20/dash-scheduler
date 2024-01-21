@@ -10,9 +10,9 @@ function ScheduleHeader({ category }: Props) {
       <td className="w-[150px]">time</td>
       <DayList category={category} />
 
-      <td>subject</td>
-      <td>section</td>
-      <td className="w-[11px]">no. of students</td>
+      <td>{category === "room" ? "COURSE CODE" : "SUBJECT"}</td>
+      <td>{category === "RM" ? "INSTRUCTOR" : "section"}</td>
+      <td className="w-[11px]">NO. OF STUDENTS</td>
     </tr>
   );
 }
