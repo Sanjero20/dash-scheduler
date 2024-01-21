@@ -14,7 +14,7 @@ interface DayListProps {
 }
 
 function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
-  const { getSchedules } = useScheduleStore();
+  const { schedules } = useScheduleStore();
 
   const schedulesValue = state[stateIndex].schedules;
 
@@ -38,7 +38,7 @@ function InputCol({ stateIndex, state, handleInputChange }: DayListProps) {
           <td
             rowSpan={2}
             className={
-              getSchedules()[stateIndex].schedules[index].conflicted
+              schedules[stateIndex].schedules[index].conflicted
                 ? "bg-red-400"
                 : ""
             }

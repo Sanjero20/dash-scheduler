@@ -19,7 +19,7 @@ interface RightValues {
 
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
-  const { getSchedules, setSchedules } = useScheduleStore();
+  const { schedules, setSchedules } = useScheduleStore();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
@@ -46,7 +46,6 @@ function FacultySchedule() {
   }, [state]);
 
   useEffect(() => {
-    const schedules = getSchedules();
     dispatch({ type: "SET_ALL", value: schedules });
   }, [setSchedules]);
 
@@ -66,7 +65,7 @@ function FacultySchedule() {
     }
 
     // another big brain move ooohoohohohh~
-    let unique: RightValues[] = [];
+    const unique: RightValues[] = [];
     for (let i = 0; i < formatted.length; i++) {
       if (
         !unique.find(
