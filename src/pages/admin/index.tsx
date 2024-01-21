@@ -8,12 +8,12 @@ function AdminHome() {
   return (
     <div className="flex h-full flex-grow gap-4">
       <Card className="w-1/2 p-2">
-        {/* <AccountForm /> */}
+        <AccountForm />
         <AccountList />
       </Card>
 
       <Card className="w-1/2 p-2">
-        {/* <FacultyForm /> */}
+        <FacultyForm />
         <FacultyList />
       </Card>
     </div>
