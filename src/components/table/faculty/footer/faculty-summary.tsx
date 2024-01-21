@@ -34,12 +34,12 @@ function FacultySummary() {
     const fetchData = async () => {
       const id = searchParams.get("userId");
       if (!id) return;
-      const summary = await getFacultyFooter(id);
-      console.log(summary);
+      const { summary } = await getFacultyFooter(id);
+      dispatch({ type: "SET_ALL", value: summary });
     };
 
     fetchData();
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     setSummary(state);

@@ -46,7 +46,30 @@ export async function deleteFaculty(initials: string) {
 
 export async function getFacultyFooter(id: string) {
   const response = await api.get(`/details/footer/${id}`);
-  return await response.data;
+  const responseData = await response.data;
+
+  const data = responseData[responseData.length - 1];
+
+  console.log(data);
+
+  const total: ITotal = {
+    officialTime: data.official_time,
+    teachingHours: data.teaching_hours,
+    overtimeWithin: data.overtimeWithin,
+    overtimeOutside: data.overtimeOutside,
+  };
+
+  const summary: IOverallSummary = {
+    designation: data.designation,
+    preparations: data.preparations,
+    hoursPerWeek: data.hours_per_week,
+    regularLoad: data.regular_load,
+    overload: data.overload,
+    academicRank: data.academic_rank,
+    consultationHours: data.consultation_hours,
+  };
+
+  return { total, summary };
 }
 
 export async function saveFacultyFooter(
