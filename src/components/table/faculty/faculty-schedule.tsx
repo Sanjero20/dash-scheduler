@@ -76,7 +76,7 @@ function FacultySchedule() {
     }
 
     // another big brain move ooohoohohohh~
-    let unique: RightValues[] = [];
+    const unique: RightValues[] = [];
     for (let i = 0; i < formatted.length; i++) {
       if (
         !unique.find(

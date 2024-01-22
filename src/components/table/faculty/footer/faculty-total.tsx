@@ -13,12 +13,15 @@ function FacultyTotal() {
   const [overtimeOutside, setOvertimeOutside] = useState(initialValues);
 
   const [searchParams] = useSearchParams();
+  const [userId, setUserId] = useState(searchParams.get("userId") || "");
 
   const { setTotal } = useFacultyStore();
 
   useEffect(() => {
     const fetchData = async () => {
       const id = searchParams.get("userId");
+      setUserId(id || "");
+
       if (!id) return;
       const { total } = await getFacultyFooter(id);
 
@@ -49,20 +52,23 @@ function FacultyTotal() {
         title="Official Time"
         list={officialTime}
         handler={setOfficialTime}
+        disabled={!userId}
       />
 
-      <InputTeachingHours list={hours} handler={setHours} />
+      <InputTeachingHours list={hours} handler={setHours} disabled={!userId} />
 
       <InputFields
         title="Overtime Within"
         list={overtimeWithin}
         handler={setOvertimeWithin}
+        disabled={!userId}
       />
 
       <InputFields
         title="Overtime Outside"
         list={overtimeOutside}
         handler={setOvertimeOutside}
+        disabled={!userId}
       />
     </>
   );
