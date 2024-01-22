@@ -18,7 +18,7 @@ interface RightValues {
   subject: string;
   section: string;
   initials: string;
-  status?: string;
+  status: string;
 }
 
 function FacultySchedule() {
@@ -52,41 +52,7 @@ function FacultySchedule() {
   useEffect(() => {
     setSchedules(state);
     schedDetailsLazyAlgo(state);
-
-    console.log(scheduleState);
-    // scheduleState.forEach((state) => {
-    //   const newOddState = uniqueEvenValues?.map((newval) => {
-    //     if (
-    //       newval.initials === state.initials &&
-    //       newval.section === state.section &&
-    //       newval.subject === state.course
-    //     ) {
-    //       return {
-    //         ...newval,
-    //         status: state.status,
-    //       };
-    //     }
-    //     return newval;
-    //   });
-
-    //   const newEvenState = uniqueEvenValues?.map((newval) => {
-    //     if (
-    //       newval.initials === state.initials &&
-    //       newval.section === state.section &&
-    //       newval.subject === state.course
-    //     ) {
-    //       return {
-    //         ...newval,
-    //         status: state.status,
-    //       };
-    //     }
-    //     return newval;
-    //   });
-
-    //   setUniqueOddValues(newOddState);
-    //   setUniqueEvenValues(newEvenState);
-    // });
-  }, [state, scheduleState]);
+  }, [state]);
 
   useEffect(() => {
     dispatch({ type: "SET_ALL", value: schedules });
@@ -104,6 +70,7 @@ function FacultySchedule() {
           section: schedule.section,
           subject: schedule.course,
           initials: schedule.initials,
+          status: "",
         });
       }
     }
@@ -133,8 +100,50 @@ function FacultySchedule() {
       else uniqueOdd.push(unique[i]);
     }
 
-    setUniqueEvenValues(uniqueEven);
-    setUniqueOddValues(uniqueOdd);
+    const cursedOdd: RightValues[] = [];
+    for (let i = 0; i < uniqueOdd.length; i++) {
+      let matched = false;
+      for (let j = 0; j < scheduleState.length; j++) {
+        if (
+          uniqueOdd[i].initials === scheduleState[j].initials &&
+          uniqueOdd[i].section === scheduleState[j].section &&
+          uniqueOdd[i].subject === scheduleState[j].course
+        ) {
+          matched = true;
+          cursedOdd.push({
+            initials: uniqueOdd[i].initials,
+            section: uniqueOdd[i].section,
+            subject: uniqueOdd[i].subject,
+            status: scheduleState[j].status ?? "",
+          });
+        }
+      }
+      if (!matched) cursedOdd.push(uniqueOdd[i]);
+    }
+
+    const cursedEven: RightValues[] = [];
+    for (let i = 0; i < uniqueEven.length; i++) {
+      let matched = false;
+      for (let j = 0; j < scheduleState.length; j++) {
+        if (
+          uniqueEven[i].initials === scheduleState[j].initials &&
+          uniqueEven[i].section === scheduleState[j].section &&
+          uniqueEven[i].subject === scheduleState[j].course
+        ) {
+          matched = true;
+          cursedEven.push({
+            initials: uniqueEven[i].initials,
+            section: uniqueEven[i].section,
+            subject: uniqueEven[i].subject,
+            status: scheduleState[j].status ?? "",
+          });
+        }
+      }
+      if (!matched) cursedEven.push(uniqueEven[i]);
+    }
+
+    setUniqueEvenValues(cursedEven);
+    setUniqueOddValues(cursedOdd);
   };
 
   return (
@@ -227,6 +236,11 @@ function FacultySchedule() {
                       section={
                         uniqueOddValues && index < uniqueOddValues.length
                           ? uniqueOddValues[index].section
+                          : ""
+                      }
+                      status={
+                        uniqueOddValues && index < uniqueOddValues.length
+                          ? uniqueOddValues[index].status
                           : ""
                       }
                     />
