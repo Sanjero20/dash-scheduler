@@ -1,8 +1,15 @@
 import { IScheduleRight } from "@/types/api";
 import { useScheduleState } from "@/stores/scheduleState";
+import { useEffect, useState } from "react";
 
-function InputScheduleState({ course, initials, section }: IScheduleRight) {
+function InputScheduleState({
+  course,
+  initials,
+  section,
+  status,
+}: IScheduleRight) {
   const { scheduleState, setStateSchedule } = useScheduleState();
+  const [value, setValue] = useState(status);
 
   // checks for duplication
   const handleStore = (params: IScheduleRight) => {
@@ -27,11 +34,17 @@ function InputScheduleState({ course, initials, section }: IScheduleRight) {
     setStateSchedule([...newSched, params]);
   };
 
+  useEffect(() => {
+    setValue(status);
+  }, [status]);
+
   return (
     <input
-      onChange={(e) =>
-        handleStore({ course, initials, section, status: e.target.value })
-      }
+      onChange={(e) => {
+        handleStore({ course, initials, section, status: e.target.value });
+        setValue(e.target.value);
+      }}
+      value={value}
     />
   );
 }

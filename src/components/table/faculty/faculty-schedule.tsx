@@ -8,7 +8,7 @@ import InputCol from "./input/input-col";
 import InputSection from "./input/input-section";
 import InputScheduleState from "./input/input-schedule-state";
 
-import { getFormattedShedule } from "@/services/api/faculty";
+import { getFormattedShedule, getScheduleState } from "@/services/api/faculty";
 import { useScheduleState } from "@/stores/scheduleState";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
@@ -18,12 +18,13 @@ interface RightValues {
   subject: string;
   section: string;
   initials: string;
+  status: string;
 }
 
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
   const { schedules, setSchedules } = useScheduleStore();
-  const { scheduleState } = useScheduleState();
+  const { scheduleState, setStateSchedule } = useScheduleState();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
@@ -35,17 +36,17 @@ function FacultySchedule() {
       setSchedules([]);
       return;
     }
+
     const fetchData = async () => {
       const data = await getFormattedShedule(parseInt(userId));
+      const schedState = await getScheduleState(data[0].schedules[0].initials);
+
       dispatch({ type: "SET_ALL", value: data });
+      setStateSchedule(schedState.rows);
     };
 
     fetchData();
   }, [searchParams]);
-
-  useEffect(() => {
-    console.log(scheduleState);
-  }, [scheduleState]);
 
   // copy state globally
   useEffect(() => {
@@ -69,6 +70,7 @@ function FacultySchedule() {
           section: schedule.section,
           subject: schedule.course,
           initials: schedule.initials,
+          status: "",
         });
       }
     }
@@ -98,8 +100,50 @@ function FacultySchedule() {
       else uniqueOdd.push(unique[i]);
     }
 
-    setUniqueEvenValues(uniqueEven);
-    setUniqueOddValues(uniqueOdd);
+    const cursedOdd: RightValues[] = [];
+    for (let i = 0; i < uniqueOdd.length; i++) {
+      let matched = false;
+      for (let j = 0; j < scheduleState.length; j++) {
+        if (
+          uniqueOdd[i].initials === scheduleState[j].initials &&
+          uniqueOdd[i].section === scheduleState[j].section &&
+          uniqueOdd[i].subject === scheduleState[j].course
+        ) {
+          matched = true;
+          cursedOdd.push({
+            initials: uniqueOdd[i].initials,
+            section: uniqueOdd[i].section,
+            subject: uniqueOdd[i].subject,
+            status: scheduleState[j].status ?? "",
+          });
+        }
+      }
+      if (!matched) cursedOdd.push(uniqueOdd[i]);
+    }
+
+    const cursedEven: RightValues[] = [];
+    for (let i = 0; i < uniqueEven.length; i++) {
+      let matched = false;
+      for (let j = 0; j < scheduleState.length; j++) {
+        if (
+          uniqueEven[i].initials === scheduleState[j].initials &&
+          uniqueEven[i].section === scheduleState[j].section &&
+          uniqueEven[i].subject === scheduleState[j].course
+        ) {
+          matched = true;
+          cursedEven.push({
+            initials: uniqueEven[i].initials,
+            section: uniqueEven[i].section,
+            subject: uniqueEven[i].subject,
+            status: scheduleState[j].status ?? "",
+          });
+        }
+      }
+      if (!matched) cursedEven.push(uniqueEven[i]);
+    }
+
+    setUniqueEvenValues(cursedEven);
+    setUniqueOddValues(cursedOdd);
   };
 
   return (
@@ -146,6 +190,11 @@ function FacultySchedule() {
                           ? uniqueEvenValues[index].section
                           : ""
                       }
+                      status={
+                        uniqueEvenValues && index < uniqueEvenValues.length
+                          ? uniqueEvenValues[index].status
+                          : ""
+                      }
                     />
                   </td>
                 </>
@@ -187,6 +236,11 @@ function FacultySchedule() {
                       section={
                         uniqueOddValues && index < uniqueOddValues.length
                           ? uniqueOddValues[index].section
+                          : ""
+                      }
+                      status={
+                        uniqueOddValues && index < uniqueOddValues.length
+                          ? uniqueOddValues[index].status
                           : ""
                       }
                     />
