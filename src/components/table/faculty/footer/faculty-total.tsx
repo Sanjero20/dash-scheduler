@@ -22,7 +22,14 @@ function FacultyTotal() {
       const id = searchParams.get("userId");
       setUserId(id || "");
 
-      if (!id) return;
+      if (!id) {
+        setOfficialTime(initialValues);
+        setHours(initialValues);
+        setOvertimeWithin(initialValues);
+        setOvertimeOutside(initialValues);
+        return;
+      }
+
       const { total } = await getFacultyFooter(id);
 
       const { officialTime, teachingHours, overtimeOutside, overtimeWithin } =

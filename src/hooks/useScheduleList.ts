@@ -4,6 +4,7 @@ import { useReducer, ChangeEvent } from "react";
 
 type IAction =
   | { type: "SET_ALL"; value: ISchedule[] }
+  | { type: "RESET" }
   | {
       type: "UPDATE_VALUE";
       index: number;
@@ -11,11 +12,15 @@ type IAction =
       key: string;
       value: string;
     };
+const initialState = createSchedulePerTime();
 
 const scheduleReducer = (state: ISchedule[], action: IAction) => {
   switch (action.type) {
     case "SET_ALL":
       return action.value;
+
+    case "RESET":
+      return initialState;
 
     case "UPDATE_VALUE":
       return state.map((schedule, index) =>
@@ -33,8 +38,6 @@ const scheduleReducer = (state: ISchedule[], action: IAction) => {
       );
   }
 };
-
-const initialState = createSchedulePerTime();
 
 function useScheduleList() {
   const [state, dispatch] = useReducer(scheduleReducer, initialState);

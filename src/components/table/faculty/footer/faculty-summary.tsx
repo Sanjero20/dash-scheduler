@@ -37,7 +37,11 @@ function FacultySummary() {
 
       setUserId(id || "");
 
-      if (!id) return;
+      if (!id) {
+        dispatch({ type: "SET_ALL", value: initialSummary });
+        return;
+      }
+
       const { summary } = await getFacultyFooter(id);
       dispatch({ type: "SET_ALL", value: summary });
     };

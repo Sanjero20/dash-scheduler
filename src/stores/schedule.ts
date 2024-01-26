@@ -8,6 +8,7 @@ interface States {
 
 interface Actions {
   setSchedules: (schedule: ISchedule[]) => void;
+  resetSchedules: () => void;
 }
 
 const initialData = createSchedulePerTime();
@@ -15,4 +16,5 @@ const initialData = createSchedulePerTime();
 export const useScheduleStore = create<States & Actions>((set) => ({
   schedules: initialData,
   setSchedules: (schedules) => set({ schedules }),
+  resetSchedules: () => set({ schedules: initialData }),
 }));

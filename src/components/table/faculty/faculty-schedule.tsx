@@ -23,7 +23,7 @@ interface RightValues {
 
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
-  const { schedules, setSchedules } = useScheduleStore();
+  const { schedules, setSchedules, resetSchedules } = useScheduleStore();
   const { scheduleState, setStateSchedule } = useScheduleState();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
@@ -32,8 +32,10 @@ function FacultySchedule() {
   // fetch data base on userId
   useEffect(() => {
     const userId = searchParams.get("userId");
+
     if (!userId) {
-      setSchedules([]);
+      resetSchedules();
+      dispatch({ type: "RESET" });
       return;
     }
 
