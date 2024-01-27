@@ -18,11 +18,13 @@ import { getFaculties } from "@/services/api/faculty";
 import { useScheduleStore } from "@/stores/schedule";
 import { IFaculty } from "@/types/api";
 import { cn } from "@/lib/utils";
+import { useFacultyStore } from "@/stores/faculty";
 
 function SelectFaculty() {
   const [faculties, setFaculties] = useState<IFaculty[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const { setFacultyName, resetAll } = useFacultyStore();
   const [selectedId, setSelectedId] = useState<string | null>(
     searchParams.get("userId"),
   );
@@ -36,11 +38,15 @@ function SelectFaculty() {
   useEffect(() => {
     const fetchData = async () => {
       const faculties = await getFaculties();
+
       setFaculties(faculties);
-      setValue(
+
+      const facultyName =
         faculties.find((faculty) => faculty.id.toString() === selectedId)
-          ?.name || "",
-      );
+          ?.name || "";
+
+      setValue(facultyName);
+      setFacultyName(facultyName);
     };
 
     fetchData();
@@ -58,6 +64,7 @@ function SelectFaculty() {
     setSearchParams({ userId: selectedId.toString() });
   }, [value]);
 
+  // reset all details if params is invalid
   useEffect(() => {
     const id = searchParams.get("userId");
 
@@ -65,9 +72,16 @@ function SelectFaculty() {
       setSelectedId(null);
       setValue("");
       resetSchedules();
+      resetAll();
       searchParams.delete("userId");
       setSearchParams(searchParams);
     }
+
+    const facultyName =
+      faculties.find((faculty) => faculty.id.toString() === selectedId)?.name ||
+      "";
+
+    setFacultyName(facultyName);
   }, [searchParams]);
 
   return (

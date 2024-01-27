@@ -14,6 +14,7 @@ import { useScheduleState } from "@/stores/scheduleState";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
 import useScheduleList from "@/hooks/useScheduleList";
+import { useFacultyStore } from "@/stores/faculty";
 
 interface RightValues {
   subject: string;
@@ -25,9 +26,12 @@ interface RightValues {
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
 
+  const [searchParams] = useSearchParams();
+
+  const { facultyName } = useFacultyStore();
   const { setSchedules, resetSchedules } = useScheduleStore();
   const { scheduleState, setStateSchedule } = useScheduleState();
-  const [searchParams] = useSearchParams();
+
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
 
@@ -43,6 +47,7 @@ function FacultySchedule() {
       }
 
       const data = await getFormattedShedule(parseInt(userId));
+
       const schedState = await getScheduleState(data[0].schedules[0].initials);
 
       dispatch({ type: "SET_ALL", value: data });
@@ -256,7 +261,11 @@ function FacultySchedule() {
 
               {/* Columns for the names in the right side of the table */}
               {index == 8 && (
-                <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
+                <ColumnName
+                  rowSpan={4}
+                  name={facultyName}
+                  title="Faculty Assigned"
+                />
               )}
 
               {index == 10 && <DeanRow rowSpan={6} />}
