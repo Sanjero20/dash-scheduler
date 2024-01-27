@@ -19,7 +19,7 @@ interface RightValues {
 function ClassSchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
   const [searchParams] = useSearchParams();
-  const { setSchedules } = useScheduleStore();
+  const { setSchedules, resetSchedules } = useScheduleStore();
 
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
@@ -27,6 +27,8 @@ function ClassSchedule() {
   useEffect(() => {
     const id = searchParams.get("id");
     if (!id) {
+      dispatch({ type: "RESET" });
+      resetSchedules();
       return;
     }
 
@@ -60,7 +62,7 @@ function ClassSchedule() {
     }
 
     // another big brain move ooohoohohohh~
-    let unique: RightValues[] = [];
+    const unique: RightValues[] = [];
     for (let i = 0; i < formatted.length; i++) {
       if (
         !unique.find(

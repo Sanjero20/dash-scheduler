@@ -63,6 +63,7 @@ function SelectFaculty() {
 
     if (!id) {
       setSelectedId(null);
+      setValue("");
       resetSchedules();
       searchParams.delete("userId");
       setSearchParams(searchParams);

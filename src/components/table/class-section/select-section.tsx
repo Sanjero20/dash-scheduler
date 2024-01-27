@@ -19,10 +19,12 @@ function SelectSection() {
   }, []);
 
   useEffect(() => {
-    const params = searchParams.get("id");
-    if (params == "") {
+    const id = searchParams.get("id");
+
+    if (!id) {
       searchParams.delete("id");
       setSearchParams(searchParams);
+      setSelectedValue("");
     }
   }, [searchParams]);
 

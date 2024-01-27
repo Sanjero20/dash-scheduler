@@ -18,7 +18,7 @@ interface RightValues {
 
 function RoomSchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
-  const { setSchedules } = useScheduleStore();
+  const { setSchedules, resetSchedules } = useScheduleStore();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
@@ -26,6 +26,8 @@ function RoomSchedule() {
   useEffect(() => {
     const id = searchParams.get("id");
     if (!id) {
+      resetSchedules();
+      dispatch({ type: "RESET" });
       return;
     }
 
@@ -59,7 +61,7 @@ function RoomSchedule() {
     }
 
     // another big brain move ooohoohohohh~
-    let unique: RightValues[] = [];
+    const unique: RightValues[] = [];
     for (let i = 0; i < formatted.length; i++) {
       if (
         !unique.find(

@@ -40,6 +40,7 @@ function InputScheduleState({
 
   return (
     <input
+      tabIndex={-1}
       onChange={(e) => {
         handleStore({ course, initials, section, status: e.target.value });
         setValue(e.target.value);

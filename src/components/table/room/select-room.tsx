@@ -19,8 +19,10 @@ function SelectRoom() {
   }, []);
 
   useEffect(() => {
-    const params = searchParams.get("id");
-    if (params == "") {
+    const id = searchParams.get("id");
+
+    if (!id) {
+      setSelectedValue("");
       searchParams.delete("id");
       setSearchParams(searchParams);
     }
