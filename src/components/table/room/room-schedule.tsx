@@ -1,12 +1,13 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import ColumnName from "../rows/schedule-list/names";
 import InputCol from "./input/input-col";
 import InputFaculty from "./input/input-faculty";
-import { useScheduleStore } from "@/stores/schedule";
+import ColumnName from "../rows/names/names";
+import { DeanRow, ViceChancellorRow } from "../rows/names/other-names";
 
 import useScheduleList from "@/hooks/useScheduleList";
+import { useScheduleStore } from "@/stores/schedule";
 import { getRoomDataByCode } from "@/services/api/room";
 import { SCHEDULES } from "@/constants/initial";
 import { ISchedule } from "@/types/api";
@@ -124,17 +125,9 @@ function RoomSchedule() {
               <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
             )}
 
-            {index == 7 && (
-              <ColumnName rowSpan={4} name="" title="Dean CEAFA" />
-            )}
+            {index == 7 && <DeanRow rowSpan={4} />}
 
-            {index == 9 && (
-              <ColumnName
-                rowSpan={10}
-                name=""
-                title="Executive Director, Main II"
-              />
-            )}
+            {index == 9 && <ViceChancellorRow rowSpan={10} />}
           </tr>
 
           {/* sections */}

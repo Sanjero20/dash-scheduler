@@ -6,11 +6,11 @@ interface ColProps {
 
 function ColumnName({ rowSpan, name, title }: ColProps) {
   return (
-    <td rowSpan={rowSpan} colSpan={3}>
+    <td rowSpan={rowSpan} colSpan={3} className="column-name">
       <br />
       <br />
-      <p className="uppercase">{name || "name"}</p>
-      <p className="font-bold">{title || "Title"}</p>
+      <p className="text-[12px]">{name || ""}</p>
+      <p className="text-[12px] font-bold">{title || ""}</p>
     </td>
   );
 }

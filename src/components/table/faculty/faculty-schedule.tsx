@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SCHEDULES } from "@/constants/initial";
 
-import ColumnName from "../rows/schedule-list/names";
+import ColumnName from "../rows/names/names";
 import InputCol from "./input/input-col";
 import InputSection from "./input/input-section";
 import InputScheduleState from "./input/input-schedule-state";
@@ -13,6 +13,7 @@ import { useScheduleState } from "@/stores/scheduleState";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
 import useScheduleList from "@/hooks/useScheduleList";
+import { DeanRow, ViceChancellorRow } from "../rows/names/other-names";
 
 interface RightValues {
   subject: string;
@@ -258,17 +259,9 @@ function FacultySchedule() {
                 <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
               )}
 
-              {index == 10 && (
-                <ColumnName rowSpan={6} name="" title="Dean CEAFA" />
-              )}
+              {index == 10 && <DeanRow rowSpan={6} />}
 
-              {index == 13 && (
-                <ColumnName
-                  rowSpan={9}
-                  name=""
-                  title="Executive Director, Main II"
-                />
-              )}
+              {index == 13 && <ViceChancellorRow rowSpan={9} />}
             </tr>
           </Fragment>
         );
