@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { SCHEDULES } from "@/constants/initial";
 
 import ColumnName from "../rows/names/names";
+import { DeanRow, ViceChancellorRow } from "../rows/names/other-names";
 import InputCol from "./input/input-col";
 import InputSection from "./input/input-section";
 import InputScheduleState from "./input/input-schedule-state";
@@ -13,7 +14,6 @@ import { useScheduleState } from "@/stores/scheduleState";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
 import useScheduleList from "@/hooks/useScheduleList";
-import { DeanRow, ViceChancellorRow } from "../rows/names/other-names";
 
 interface RightValues {
   subject: string;
