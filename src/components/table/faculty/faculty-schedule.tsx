@@ -23,7 +23,8 @@ interface RightValues {
 
 function FacultySchedule() {
   const [state, dispatch, handleInputChange] = useScheduleList();
-  const { schedules, setSchedules, resetSchedules } = useScheduleStore();
+
+  const { setSchedules, resetSchedules } = useScheduleStore();
   const { scheduleState, setStateSchedule } = useScheduleState();
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
@@ -31,15 +32,15 @@ function FacultySchedule() {
 
   // fetch data base on userId
   useEffect(() => {
-    const userId = searchParams.get("userId");
-
-    if (!userId) {
-      resetSchedules();
-      dispatch({ type: "RESET" });
-      return;
-    }
-
     const fetchData = async () => {
+      const userId = searchParams.get("userId");
+
+      if (!userId) {
+        resetSchedules();
+        dispatch({ type: "RESET" });
+        return;
+      }
+
       const data = await getFormattedShedule(parseInt(userId));
       const schedState = await getScheduleState(data[0].schedules[0].initials);
 
@@ -48,6 +49,12 @@ function FacultySchedule() {
     };
 
     fetchData();
+
+    // Reset schedules when going to other page
+    return () => {
+      resetSchedules();
+      dispatch({ type: "RESET" });
+    };
   }, [searchParams]);
 
   // copy state globally
@@ -55,10 +62,6 @@ function FacultySchedule() {
     setSchedules(state);
     schedDetailsLazyAlgo(state);
   }, [state]);
-
-  useEffect(() => {
-    dispatch({ type: "SET_ALL", value: schedules });
-  }, [setSchedules]);
 
   const schedDetailsLazyAlgo = function (state: ISchedule[]) {
     // stackleague big-brain solution

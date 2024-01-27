@@ -12,6 +12,7 @@ type IAction =
       key: string;
       value: string;
     };
+
 const initialState = createSchedulePerTime();
 
 const scheduleReducer = (state: ISchedule[], action: IAction) => {
