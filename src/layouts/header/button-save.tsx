@@ -64,7 +64,7 @@ function ButtonSave() {
 
     console.log(schedules);
     try {
-      const response = await updateClassSectionSchedule(schedules);
+      const response = await updateClassSectionSchedule({ rows: schedules });
       console.log(response);
     } catch (error) {
       console.log(error);
