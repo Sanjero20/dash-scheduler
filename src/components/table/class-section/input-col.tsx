@@ -1,7 +1,8 @@
-import { DAYS } from "@/constants/initial";
-import { ISchedule } from "@/types/api";
 import { ChangeEvent, Fragment } from "react";
 import TextAreaAutoSize from "react-textarea-autosize";
+
+import { DAYS } from "@/constants/initial";
+import { ISchedule } from "@/types/api";
 
 interface Props {
   stateIndex: number;
@@ -10,9 +11,10 @@ interface Props {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     index: number,
   ) => void;
+  disabled: boolean;
 }
 
-function InputCol({ stateIndex, state, handleInputChange }: Props) {
+function InputCol({ stateIndex, state, handleInputChange, disabled }: Props) {
   return (
     <>
       {DAYS.map((day, index) => (
@@ -25,6 +27,7 @@ function InputCol({ stateIndex, state, handleInputChange }: Props) {
               value={state[stateIndex].schedules[index].course}
               onChange={(e) => handleInputChange(e, stateIndex)}
               tabIndex={index}
+              disabled={disabled}
             />
           </td>
 
@@ -37,6 +40,7 @@ function InputCol({ stateIndex, state, handleInputChange }: Props) {
               value={state[stateIndex].schedules[index].room}
               onChange={(e) => handleInputChange(e, stateIndex)}
               tabIndex={index}
+              disabled={disabled}
             />
           </td>
         </Fragment>

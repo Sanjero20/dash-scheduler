@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import InputCol from "./input-col";
-import InputFaculty from "../room/input/input-faculty";
+import InputFaculty from "./input-faculty";
 import ColumnName from "../rows/names/names";
 import { DeanRow, ViceChancellorRow } from "../rows/names/other-names";
 
@@ -19,19 +19,25 @@ interface RightValues {
 
 function ClassSchedule() {
   const [searchParams] = useSearchParams();
+
   const [state, dispatch, handleInputChange] = useScheduleList();
   const { setSchedules, resetSchedules } = useScheduleStore();
 
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
+  const [disableInput, setDisableInput] = useState(true);
 
   useEffect(() => {
     const id = searchParams.get("id");
+
     if (!id) {
       dispatch({ type: "RESET" });
       resetSchedules();
+      setDisableInput(true);
       return;
     }
+
+    setDisableInput(false);
 
     const fetchData = async () => {
       const roomDetails = await getSectionDetails(id);
@@ -103,6 +109,7 @@ function ClassSchedule() {
               stateIndex={index}
               state={state}
               handleInputChange={handleInputChange}
+              disabled={disableInput}
             />
 
             {index < 5 && (
@@ -135,6 +142,7 @@ function ClassSchedule() {
               stateIndex={index}
               state={state}
               handleInputChange={handleInputChange}
+              disabled={disableInput}
             />
 
             {index < 5 && (
