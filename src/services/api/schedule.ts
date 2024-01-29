@@ -9,6 +9,15 @@ export async function getSectionList() {
 
 export async function getSectionDetails(section: string): Promise<ISchedule[]> {
   const response = await api.get(`/schedules/section/formatted/${section}`);
-  const classData = await response.data;
-  return classData;
+  const schedules = await response.data;
+  return schedules;
+}
+
+export async function updateClassSectionSchedule(schedules: ISchedule[]) {
+  const response = await api.post(
+    `/schedules/bulk/formatted/class-schedule`,
+    schedules,
+  );
+
+  return response;
 }

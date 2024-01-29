@@ -1,16 +1,20 @@
+import { useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { CheckCircle, XCircle } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+
+import { useFacultyStore } from "@/stores/faculty";
+import { useScheduleStore } from "@/stores/schedule";
+import { useScheduleState } from "@/stores/scheduleState";
+
+import { updateClassSectionSchedule } from "@/services/api/schedule";
 import {
   saveFacultyFooter,
   saveScheduleState,
   uploadSchedules,
 } from "@/services/api/faculty";
-import { useFacultyStore } from "@/stores/faculty";
-import { useScheduleStore } from "@/stores/schedule";
-import { useScheduleState } from "@/stores/scheduleState";
-import { CheckCircle, XCircle } from "lucide-react";
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 function ButtonSave() {
   const [isSaving, setIsSaving] = useState(false);
@@ -18,11 +22,13 @@ function ButtonSave() {
   const { schedules, setSchedules } = useScheduleStore();
   const { scheduleState } = useScheduleState();
   const { total, summary } = useFacultyStore();
+
   const [searchParams] = useSearchParams();
+  const { pathname } = useLocation();
 
   const { toast } = useToast();
 
-  const handleSave = async () => {
+  const handleFacultySave = async () => {
     setIsSaving(true);
 
     const id = searchParams.get("userId");
@@ -53,10 +59,24 @@ function ButtonSave() {
     setIsSaving(false);
   };
 
+  const handleSectionScheduleSave = async () => {
+    setIsSaving(true);
+
+    console.log(schedules);
+    try {
+      const response = await updateClassSectionSchedule(schedules);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <Button
       variant={"secondary"}
-      onClick={handleSave}
+      onClick={pathname == "/" ? handleFacultySave : handleSectionScheduleSave}
       disabled={isSaving}
       className="w-24"
     >
