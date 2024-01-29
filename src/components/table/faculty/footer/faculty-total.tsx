@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import InputFields from "./input-fields";
 import InputTeachingHours from "./input-teaching-hours";
+
+import { useScheduleStore } from "@/stores/schedule";
 import { initialValues, useFacultyStore } from "@/stores/faculty";
 import { getFacultyFooter } from "@/services/api/faculty";
-import { useSearchParams } from "react-router-dom";
+import { calculateHoursByDay } from "@/lib/calculateHours";
 
 function FacultyTotal() {
   const [officialTime, setOfficialTime] = useState(initialValues);
@@ -15,6 +19,7 @@ function FacultyTotal() {
   const [searchParams] = useSearchParams();
   const [userId, setUserId] = useState(searchParams.get("userId") || "");
 
+  const { schedules } = useScheduleStore();
   const { setTotal } = useFacultyStore();
 
   useEffect(() => {
@@ -22,6 +27,7 @@ function FacultyTotal() {
       const id = searchParams.get("userId");
       setUserId(id || "");
 
+      // Reset values
       if (!id) {
         setOfficialTime(initialValues);
         setHours(initialValues);
@@ -44,6 +50,7 @@ function FacultyTotal() {
     fetchData();
   }, [searchParams]);
 
+  // Copy to global state
   useEffect(() => {
     setTotal({
       officialTime,
@@ -52,6 +59,15 @@ function FacultyTotal() {
       overtimeOutside,
     });
   }, [officialTime, hours, overtimeWithin, overtimeOutside]);
+
+  useEffect(() => {
+    if (!searchParams.get("userId")) return;
+
+    const totalHours = calculateHoursByDay(schedules);
+    const parsed = totalHours.map((hour) => hour.toString());
+
+    setHours(parsed);
+  }, [schedules]);
 
   return (
     <>

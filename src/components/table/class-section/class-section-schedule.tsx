@@ -122,9 +122,7 @@ function ClassSchedule() {
             )}
 
             {/* Columns for the names in the right side of the table */}
-            {index == 5 && (
-              <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
-            )}
+            {index == 5 && <ColumnName rowSpan={4} name="" title="Adviser" />}
 
             {index == 7 && <DeanRow rowSpan={4} />}
 
