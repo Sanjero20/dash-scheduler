@@ -18,8 +18,8 @@ interface RightValues {
 }
 
 function ClassSchedule() {
-  const [state, dispatch, handleInputChange] = useScheduleList();
   const [searchParams] = useSearchParams();
+  const [state, dispatch, handleInputChange] = useScheduleList();
   const { setSchedules, resetSchedules } = useScheduleStore();
 
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();

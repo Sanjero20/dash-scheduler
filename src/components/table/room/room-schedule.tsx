@@ -136,6 +136,7 @@ function RoomSchedule() {
               stateIndex={index}
               state={state}
               handleInputChange={handleInputChange}
+              disabled={true}
             />
 
             {index < 5 && (

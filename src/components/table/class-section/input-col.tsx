@@ -20,7 +20,6 @@ function InputCol({ stateIndex, state, handleInputChange }: Props) {
           {/*  */}
           <td rowSpan={1}>
             <input
-              disabled
               type="text"
               name={`${day}-course`}
               value={state[stateIndex].schedules[index].course}
@@ -32,7 +31,6 @@ function InputCol({ stateIndex, state, handleInputChange }: Props) {
           {/*  */}
           <td rowSpan={2}>
             <TextAreaAutoSize
-              disabled
               className="h-full w-full resize-none text-center"
               minRows={2}
               name={`${day}-room`}

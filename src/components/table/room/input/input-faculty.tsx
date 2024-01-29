@@ -6,21 +6,27 @@ interface Props {
   stateIndex: number;
   state: ISchedule[];
   handleInputChange: (e: ChangeEvent<HTMLInputElement>, index: number) => void;
+  disabled?: boolean;
 }
 
-function InputFaculty({ stateIndex, state, handleInputChange }: Props) {
+function InputFaculty({
+  stateIndex,
+  state,
+  handleInputChange,
+  disabled = false,
+}: Props) {
   return (
     <>
       {DAYS.map((day, index) => (
         <Fragment key={index}>
           <td>
             <input
-              disabled
               type="text"
               name={`${day}-initials`}
               value={state[stateIndex].schedules[index].initials}
               onChange={(e) => handleInputChange(e, stateIndex)}
               tabIndex={index}
+              disabled={disabled}
             />
           </td>
         </Fragment>
