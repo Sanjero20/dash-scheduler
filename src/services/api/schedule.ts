@@ -13,7 +13,7 @@ export async function getSectionDetails(section: string): Promise<ISchedule[]> {
   return schedules;
 }
 
-export async function updateClassSectionSchedule(schedules: ISchedule[]) {
+export async function updateClassSectionSchedule(schedules: {rows: ISchedule[]}) {
   const response = await api.post(
     `/schedules/bulk/formatted/class-schedule`,
     schedules,
