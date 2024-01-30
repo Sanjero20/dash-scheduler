@@ -87,6 +87,8 @@ VITE_API_URL="http://localhost:8080"
 
 **Setting up backend**
 
+> Backend repository was created by [hubymeme22](https://github.com/hubymeme22/bsu-lazy-scheduling)
+
 ```bash
 git clone git@github.com:hubymeme22/bsu-lazy-scheduling.git
 
