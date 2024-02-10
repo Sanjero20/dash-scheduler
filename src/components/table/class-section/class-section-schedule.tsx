@@ -11,6 +11,7 @@ import { useScheduleStore } from "@/stores/schedule";
 import { getSectionDetails } from "@/services/api/schedule";
 import { SCHEDULES } from "@/constants/initial";
 import { ISchedule } from "@/types/api";
+import { getFormDetails } from "@/services/api/form";
 
 interface RightValues {
   subject: string;
@@ -25,7 +26,8 @@ function ClassSchedule() {
 
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
-  const [disableInput, setDisableInput] = useState(true);
+  const [deanName, setDeanName] = useState("");
+  const [vcaaName, setvcaaName] = useState("");
 
   useEffect(() => {
     const id = searchParams.get("id");
@@ -33,11 +35,8 @@ function ClassSchedule() {
     if (!id) {
       dispatch({ type: "RESET" });
       resetSchedules();
-      setDisableInput(true);
       return;
     }
-
-    setDisableInput(false);
 
     const fetchData = async () => {
       const roomDetails = await getSectionDetails(id);
@@ -52,6 +51,14 @@ function ClassSchedule() {
     setSchedules(state);
     schedDetailsLazyAlgo(state);
   }, [state]);
+
+  useEffect(() => {
+    getFormDetails().then((response) => {
+      console.log(response);
+      setDeanName(response.dean);
+      setvcaaName(response.vcaa);
+    });
+  }, []);
 
   const schedDetailsLazyAlgo = function (state: ISchedule[]) {
     // stackleague big-brain solution
@@ -109,7 +116,7 @@ function ClassSchedule() {
               stateIndex={index}
               state={state}
               handleInputChange={handleInputChange}
-              disabled={disableInput}
+              disabled
             />
 
             {index < 5 && (
@@ -131,9 +138,9 @@ function ClassSchedule() {
             {/* Columns for the names in the right side of the table */}
             {index == 5 && <ColumnName rowSpan={4} name="" title="Adviser" />}
 
-            {index == 7 && <DeanRow rowSpan={4} />}
+            {index == 7 && <DeanRow name={deanName} rowSpan={4} />}
 
-            {index == 9 && <ViceChancellorRow rowSpan={10} />}
+            {index == 9 && <ViceChancellorRow name={vcaaName} rowSpan={10} />}
           </tr>
 
           {/* sections */}
@@ -142,7 +149,7 @@ function ClassSchedule() {
               stateIndex={index}
               state={state}
               handleInputChange={handleInputChange}
-              disabled={disableInput}
+              disabled
             />
 
             {index < 5 && (

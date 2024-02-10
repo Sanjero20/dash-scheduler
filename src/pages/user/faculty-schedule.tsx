@@ -8,8 +8,20 @@ import SelectFaculty from "@/components/table/faculty/select-faculty";
 import FacultySchedule from "@/components/table/faculty/faculty-schedule";
 import FacultySummary from "@/components/table/faculty/footer/faculty-summary";
 import FacultyTotal from "@/components/table/faculty/footer/faculty-total";
+import { useEffect, useState } from "react";
+import { getFormDetails } from "@/services/api/form";
 
 function FacultySchedulePage() {
+  const [academicYear, setAcademicYear] = useState<string | number>(2024);
+  const [semester, setSemester] = useState<string>("Second");
+
+  useEffect(() => {
+    getFormDetails().then((response) => {
+      setAcademicYear(response.academic_year);
+      setSemester(response.semester);
+    });
+  });
+
   return (
     <div>
       <MainTable>
@@ -22,7 +34,12 @@ function FacultySchedulePage() {
         {/* Table Info */}
         <TableTitle title="faculty schedule" />
         <CollegeInfo />
-        <ScheduleInfo category="Name of faculty" dropdown={<SelectFaculty />} />
+        <ScheduleInfo
+          year={academicYear}
+          semester={semester}
+          category="Name of faculty"
+          dropdown={<SelectFaculty />}
+        />
 
         <ScheduleHeader category="room" />
         <FacultySchedule />

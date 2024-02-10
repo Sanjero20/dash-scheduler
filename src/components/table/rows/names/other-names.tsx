@@ -1,27 +1,16 @@
 import ColumnName from "./names";
 
 interface Props {
+  name: string;
   rowSpan: number;
 }
 
-function DeanRow({ rowSpan }: Props) {
-  return (
-    <ColumnName
-      rowSpan={rowSpan}
-      name="DR. CRISTINA AMOR M. ROSALES"
-      title="Dean, COE"
-    />
-  );
+function DeanRow({ name, rowSpan }: Props) {
+  return <ColumnName rowSpan={rowSpan} name={name} title="Dean, COE" />;
 }
 
-function ViceChancellorRow({ rowSpan }: Props) {
-  return (
-    <ColumnName
-      rowSpan={rowSpan}
-      name="Prof. PAULINA M. MACATANGAY, VCAA"
-      title=""
-    />
-  );
+function ViceChancellorRow({ name, rowSpan }: Props) {
+  return <ColumnName rowSpan={rowSpan} name={`${name}, VCAA`} title="" />;
 }
 
 export { DeanRow, ViceChancellorRow };

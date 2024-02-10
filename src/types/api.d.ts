@@ -49,3 +49,10 @@ export interface IScheduleRight {
   section: string;
   status?: string;
 }
+
+export interface IFormDetails {
+  dean: string;
+  vcaa: string;
+  academic_year: string;
+  semester: string;
+}

@@ -61,13 +61,20 @@ function ButtonSave() {
 
   const handleSectionScheduleSave = async () => {
     setIsSaving(true);
-
-    console.log(schedules);
     try {
-      const response = await updateClassSectionSchedule({ rows: schedules });
-      console.log(response);
+      await updateClassSectionSchedule({ rows: schedules });
+      toast({
+        variant: "success",
+        description: "The schedule has been saved successfully.",
+        action: <CheckCircle />,
+      });
     } catch (error) {
-      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There are conflicting schedules.",
+        action: <XCircle />,
+      });
     } finally {
       setIsSaving(false);
     }

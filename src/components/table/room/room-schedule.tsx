@@ -11,6 +11,7 @@ import { useScheduleStore } from "@/stores/schedule";
 import { getRoomDataByCode } from "@/services/api/room";
 import { SCHEDULES } from "@/constants/initial";
 import { ISchedule } from "@/types/api";
+import { getFormDetails } from "@/services/api/form";
 
 interface RightValues {
   subject: string;
@@ -23,6 +24,8 @@ function RoomSchedule() {
   const [searchParams] = useSearchParams();
   const [uniqueOddValues, setUniqueOddValues] = useState<RightValues[]>();
   const [uniqueEvenValues, setUniqueEvenValues] = useState<RightValues[]>();
+  const [deanName, setDeanName] = useState("");
+  const [vcaaName, setvcaaName] = useState("");
 
   useEffect(() => {
     const id = searchParams.get("id");
@@ -45,6 +48,14 @@ function RoomSchedule() {
     setSchedules(state);
     schedDetailsLazyAlgo(state);
   }, [state]);
+
+  useEffect(() => {
+    getFormDetails().then((response) => {
+      console.log(response);
+      setDeanName(response.dean);
+      setvcaaName(response.vcaa);
+    });
+  }, []);
 
   const schedDetailsLazyAlgo = function (state: ISchedule[]) {
     // stackleague big-brain solution
@@ -125,9 +136,9 @@ function RoomSchedule() {
               <ColumnName rowSpan={4} name="" title="Faculty Assigned" />
             )}
 
-            {index == 7 && <DeanRow rowSpan={4} />}
+            {index == 7 && <DeanRow name={deanName} rowSpan={4} />}
 
-            {index == 9 && <ViceChancellorRow rowSpan={10} />}
+            {index == 9 && <ViceChancellorRow name={vcaaName} rowSpan={10} />}
           </tr>
 
           {/* sections */}
