@@ -1,4 +1,5 @@
 import { createSchedulePerTime } from "@/constants/initial";
+import { useEditState } from "@/stores/editState";
 import { ISchedule } from "@/types/api";
 import { useReducer, ChangeEvent } from "react";
 
@@ -42,6 +43,7 @@ const scheduleReducer = (state: ISchedule[], action: IAction) => {
 
 function useScheduleList() {
   const [state, dispatch] = useReducer(scheduleReducer, initialState);
+  const { setEditState } = useEditState();
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -55,6 +57,7 @@ function useScheduleList() {
     const key = inputValues[1];
 
     dispatch({ type: "UPDATE_VALUE", index, day, key, value });
+    setEditState(true);
   };
 
   return [state, dispatch, handleInputChange] as const;

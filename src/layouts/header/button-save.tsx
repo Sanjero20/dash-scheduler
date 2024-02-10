@@ -15,6 +15,7 @@ import {
   saveScheduleState,
   uploadSchedules,
 } from "@/services/api/faculty";
+import { useEditState } from "@/stores/editState";
 
 function ButtonSave() {
   const [isSaving, setIsSaving] = useState(false);
@@ -22,6 +23,7 @@ function ButtonSave() {
   const { schedules, setSchedules } = useScheduleStore();
   const { scheduleState } = useScheduleState();
   const { total, summary } = useFacultyStore();
+  const { setEditState } = useEditState();
 
   const [searchParams] = useSearchParams();
   const { pathname } = useLocation();
@@ -57,6 +59,7 @@ function ButtonSave() {
     }
 
     setIsSaving(false);
+    setEditState(false);
   };
 
   const handleSectionScheduleSave = async () => {
