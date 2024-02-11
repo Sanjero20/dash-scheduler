@@ -1,11 +1,12 @@
-import { NavLink, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import ButtonLogout from "../../components/button-logout";
 import ButtonSave from "./button-save";
 import ButtonPrint from "./button-print";
 import NavLinkTrigger from "@/components/navlink-trigger";
 import { useEffect, useState } from "react";
+import { useScheduleStore } from "@/stores/schedule";
+import { Button } from "@/components/ui/button";
 import { useEditState } from "@/stores/editState";
-import { useScheduleState } from "@/stores/scheduleState";
 
 const ROUTES = [
   { path: "/", placeholder: "Faculty Schedule" },
@@ -14,11 +15,27 @@ const ROUTES = [
 ];
 
 function Header() {
-  const { editState } = useEditState();
-
   const [open, setOpen] = useState(false);
   const [id, setPageID] = useState<string | null>();
+  const [navtarget, setNavTarget] = useState("");
+
   const [searchParams] = useSearchParams();
+  const { editState } = useEditState();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const alternativeNavigateHandler = (path: string) => {
+    return function () {
+      setPageID(searchParams.get("userId"));
+      if (editState) {
+        setNavTarget(path);
+        setOpen(true);
+        return;
+      }
+
+      navigate(path);
+    };
+  };
 
   return (
     <>
@@ -26,19 +43,14 @@ function Header() {
         <div className="container flex items-center justify-between py-2">
           <nav className="gap-2 text-white">
             {ROUTES.map((route) => (
-              <NavLink
+              <Button
                 key={route.path}
-                to={route.path}
-                className={({ isActive }) =>
-                  `${isActive ? "bg-white text-black" : undefined} w-12 rounded-xl px-6 py-3`
-                }
-                onClick={() => {
-                  setPageID(searchParams.get("userId"));
-                  setOpen(editState);
-                }}
+                className={`${pathname === route.path ? "bg-white text-black" : "bg-transparent"}`}
+                style={{ marginRight: "2em" }}
+                onClick={alternativeNavigateHandler(route.path)}
               >
                 {route.placeholder}
-              </NavLink>
+              </Button>
             ))}
           </nav>
 
@@ -52,7 +64,12 @@ function Header() {
           </div>
         </div>
       </header>
-      <NavLinkTrigger id={id} open={open} setOpen={setOpen} />
+      <NavLinkTrigger
+        navtarget={navtarget}
+        id={id}
+        open={open}
+        setOpen={setOpen}
+      />
     </>
   );
 }

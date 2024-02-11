@@ -18,20 +18,23 @@ import {
   uploadSchedules,
 } from "@/services/api/faculty";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   id?: string | null;
+  navtarget: string;
   open: boolean;
   setOpen: (open: boolean) => void;
 };
 
-function NavLinkTrigger({ id, open, setOpen }: Props) {
+function NavLinkTrigger({ id, navtarget, open, setOpen }: Props) {
   const { schedules, setSchedules } = useScheduleStore();
   const { scheduleState } = useScheduleState();
   const { total, summary } = useFacultyStore();
-
   const { setEditState } = useEditState();
   const { toast } = useToast();
+
+  const navigate = useNavigate();
 
   const handleFacultySave = async () => {
     if (!id) return;
@@ -39,7 +42,7 @@ function NavLinkTrigger({ id, open, setOpen }: Props) {
     await saveFacultyFooter(id, total, summary);
     await saveScheduleState(scheduleState);
 
-    console.log(scheduleState);
+    console.log(response);
 
     if (response.conflicts) {
       toast({
@@ -60,10 +63,12 @@ function NavLinkTrigger({ id, open, setOpen }: Props) {
 
     setEditState(false);
     setOpen(!open);
+    navigate(navtarget);
   };
 
   const handleCancel = () => {
     setEditState(false);
+    navigate(navtarget);
   };
 
   return (

@@ -75,7 +75,6 @@ function FacultySchedule() {
 
   useEffect(() => {
     getFormDetails().then((response) => {
-      console.log(response);
       setDeanName(response.dean);
       setvcaaName(response.vcaa);
     });

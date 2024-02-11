@@ -86,9 +86,7 @@ export async function saveFacultyFooter(
   total: ITotal,
   summary: IOverallSummary,
 ) {
-  const response = await api.post("/details/footer", { id, total, summary });
-  const data = response.data;
-  console.log(data);
+  await api.post("/details/footer", { id, total, summary });
 }
 
 export async function saveScheduleState(bulkData: IScheduleRight[]) {
