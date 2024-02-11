@@ -18,7 +18,7 @@ function Header() {
   const [id, setPageID] = useState<string | null>();
   const [navtarget, setNavTarget] = useState("");
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { editState } = useEditState();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -33,6 +33,8 @@ function Header() {
       }
 
       navigate(path);
+      if (id && id !== "" && path === "/")
+        setSearchParams({ userId: id as string });
     };
   };
 
