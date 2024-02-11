@@ -3,8 +3,7 @@ import ButtonLogout from "../../components/button-logout";
 import ButtonSave from "./button-save";
 import ButtonPrint from "./button-print";
 import NavLinkTrigger from "@/components/navlink-trigger";
-import { useEffect, useState } from "react";
-import { useScheduleStore } from "@/stores/schedule";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useEditState } from "@/stores/editState";
 
