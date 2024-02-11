@@ -4,6 +4,7 @@ import AccountList from "./accounts/account-list";
 import FacultyForm from "./faculty/faculty-form";
 import FacultyList from "./faculty/faculty-list";
 import FormDetails from "./faculty/form-details-form";
+import UploadFacultyForm from "./faculty/upload-faculty-form";
 
 function AdminHome() {
   return (
@@ -15,6 +16,7 @@ function AdminHome() {
       </Card>
 
       <Card className="flex h-full w-1/2 flex-col gap-2 overflow-hidden p-2">
+        <UploadFacultyForm />
         <FacultyForm />
         <FacultyList />
       </Card>
