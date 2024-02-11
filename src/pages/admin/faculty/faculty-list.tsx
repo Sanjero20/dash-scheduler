@@ -1,4 +1,4 @@
-import { Trash } from "lucide-react";
+import { Trash, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -37,14 +37,22 @@ function FacultyList() {
           data.map((account) => (
             <div
               key={account.id}
-              className="flex items-center justify-between rounded p-2 hover:bg-slate-200"
+              className="grid grid-cols-10 gap-2 rounded p-2 hover:bg-slate-200"
             >
-              <p className="text-lg">{account.name}</p>
+              <p className="col-span-8 text-lg">{account.name}</p>
               <Button
                 variant={"destructive"}
                 onClick={() => mutation.mutate(account.initials)}
+                className="col-span-1"
               >
                 <Trash />
+              </Button>
+              <Button
+                className="col-span-1"
+                variant={"default"}
+                onClick={() => {}}
+              >
+                <Edit />
               </Button>
             </div>
           ))}

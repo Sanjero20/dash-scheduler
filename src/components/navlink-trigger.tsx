@@ -47,7 +47,7 @@ function NavLinkTrigger({ id, navtarget, open, setOpen }: Props) {
     if (response.conflicts) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: "Something went wrong.",
         description: "There are conflicting schedules.",
         action: <XCircle />,
       });

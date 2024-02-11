@@ -44,7 +44,7 @@ function ButtonSave() {
     if (response.conflicts) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: "Something went wrong.",
         description: "There are conflicting schedules.",
         action: <XCircle />,
       });
@@ -74,7 +74,7 @@ function ButtonSave() {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: "Something went wrong.",
         description: "There are conflicting schedules.",
         action: <XCircle />,
       });

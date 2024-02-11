@@ -9,8 +9,8 @@ import { useEditState } from "@/stores/editState";
 
 const ROUTES = [
   { path: "/", placeholder: "Faculty Schedule" },
-  { path: "/rooms", placeholder: "Room Utilization" },
   { path: "/schedules", placeholder: "Class Schedule" },
+  { path: "/rooms", placeholder: "Room Utilization" },
 ];
 
 function Header() {
