@@ -1,10 +1,12 @@
+import { FormEvent, useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+
 import { getFormDetails, updateFormDetails } from "@/services/api/form";
 import { IFormDetails } from "@/types/api";
 import { useMutation } from "@tanstack/react-query";
-import { FormEvent, useEffect, useState } from "react";
 
 function FormDetails() {
   const [academicYear, setAcademicYear] = useState("2024");

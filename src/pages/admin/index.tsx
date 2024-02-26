@@ -1,25 +1,40 @@
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import AccountForm from "./accounts/account-form";
-import AccountList from "./accounts/account-list";
-import FacultyForm from "./faculty/faculty-form";
-import FacultyList from "./faculty/faculty-list";
-import FormDetails from "./faculty/form-details-form";
-import UploadFacultyForm from "./faculty/upload-faculty-form";
+import { ScrollText, User, Users } from "lucide-react";
+
+const adminRoutes = [
+  { path: "form-details", icon: <ScrollText /> },
+  { path: "accounts", icon: <User /> },
+  { path: "faculties", icon: <Users /> },
+];
 
 function AdminHome() {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex h-full gap-4">
-      <Card className="flex w-1/2 flex-col gap-2 overflow-hidden p-2">
+    <div className="grid grid-cols-8 gap-4">
+      {adminRoutes.map((route) => (
+        <Card
+          key={route.path}
+          className="flex aspect-square  flex-col items-center justify-center gap-2"
+          onClick={() => navigate(route.path)}
+        >
+          {route.icon}
+          <p className="uppercase">{route.path}</p>
+        </Card>
+      ))}
+
+      {/* <Card className="flex w-1/2 flex-col gap-2 p-2">
         <FormDetails />
         <AccountForm />
         <AccountList />
       </Card>
 
-      <Card className="flex h-full w-1/2 flex-col gap-2 overflow-hidden p-2">
+      <Card className="flex h-full w-1/2 flex-col gap-2 p-2">
         <UploadFacultyForm />
         <FacultyForm />
         <FacultyList />
-      </Card>
+      </Card> */}
     </div>
   );
 }
