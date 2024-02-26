@@ -8,7 +8,7 @@ export function calculateHoursByDay(schedules: ISchedule[]): number[] {
 
     for (let j = 0; j < timeSched.length; j++) {
       const isOccupied = timeSched[j].room ? 1 : 0;
-      hoursPerDay[j] += isOccupied;
+      hoursPerDay[j] += isOccupied / 2;
     }
   }
 
