@@ -12,11 +12,11 @@ function AdminHome() {
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-cols-8 gap-4">
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-8">
       {adminRoutes.map((route) => (
         <Card
           key={route.path}
-          className="flex aspect-square  cursor-pointer select-none flex-col items-center justify-center gap-2"
+          className="flex aspect-square w-full cursor-pointer select-none flex-col items-center justify-center gap-2"
           onClick={() => navigate(route.path)}
         >
           {route.icon}
