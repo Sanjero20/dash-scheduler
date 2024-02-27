@@ -26,39 +26,41 @@ function FacultyList() {
   });
 
   return (
-    // <div className="flex h-full flex-col gap-2">>?
-    <>
+    <ScrollArea className="h-full w-full">
       <h1 className="text-xl font-bold">Faculty List</h1>
 
       <hr />
 
-      <ScrollArea className="flex-1">
+      <div className="h-full w-full">
         {data &&
           data.map((account) => (
             <div
               key={account.id}
-              className="grid grid-cols-10 gap-2 rounded p-2 hover:bg-slate-200"
+              className="flex items-center justify-between rounded p-2 hover:bg-slate-200"
             >
               <p className="col-span-8 text-lg">{account.name}</p>
-              <Button
-                variant={"destructive"}
-                onClick={() => mutation.mutate(account.initials)}
-                className="col-span-1"
-              >
-                <Trash />
-              </Button>
-              <Button
-                className="col-span-1"
-                variant={"default"}
-                onClick={() => {}}
-              >
-                <Edit />
-              </Button>
+
+              <section className="flex gap-2">
+                <Button
+                  variant={"destructive"}
+                  onClick={() => mutation.mutate(account.initials)}
+                  className="col-span-1"
+                >
+                  <Trash />
+                </Button>
+
+                <Button
+                  className="col-span-1"
+                  variant={"default"}
+                  onClick={() => {}}
+                >
+                  <Edit />
+                </Button>
+              </section>
             </div>
           ))}
-      </ScrollArea>
-    </>
-    // </div>
+      </div>
+    </ScrollArea>
   );
 }
 

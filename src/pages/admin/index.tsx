@@ -16,25 +16,13 @@ function AdminHome() {
       {adminRoutes.map((route) => (
         <Card
           key={route.path}
-          className="flex aspect-square  flex-col items-center justify-center gap-2"
+          className="flex aspect-square  cursor-pointer select-none flex-col items-center justify-center gap-2"
           onClick={() => navigate(route.path)}
         >
           {route.icon}
           <p className="uppercase">{route.path}</p>
         </Card>
       ))}
-
-      {/* <Card className="flex w-1/2 flex-col gap-2 p-2">
-        <FormDetails />
-        <AccountForm />
-        <AccountList />
-      </Card>
-
-      <Card className="flex h-full w-1/2 flex-col gap-2 p-2">
-        <UploadFacultyForm />
-        <FacultyForm />
-        <FacultyList />
-      </Card> */}
     </div>
   );
 }

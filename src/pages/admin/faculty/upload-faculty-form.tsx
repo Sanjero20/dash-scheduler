@@ -60,11 +60,7 @@ function UploadFacultyForm() {
   };
 
   return (
-    <form
-      style={{ marginBottom: "3em" }}
-      className="flex w-full flex-col gap-2"
-      onSubmit={handleFormSubmit}
-    >
+    <form className="flex w-full flex-col gap-2" onSubmit={handleFormSubmit}>
       <h1 className="text-lg font-bold">Upload Faculty Form</h1>
       <p>
         If you have excel/csv file for faculty list, kindly select your file and

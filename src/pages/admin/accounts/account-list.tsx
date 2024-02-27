@@ -25,11 +25,11 @@ function AccountList() {
   });
 
   return (
-    <>
+    <ScrollArea className="h-full w-full">
       <h1 className="text-lg font-bold">Account List</h1>
       <hr />
 
-      <ScrollArea className="flex-1">
+      <div className="flex-1">
         {data &&
           data.map((account) => (
             <div
@@ -46,8 +46,8 @@ function AccountList() {
               </Button>
             </div>
           ))}
-      </ScrollArea>
-    </>
+      </div>
+    </ScrollArea>
   );
 }
 

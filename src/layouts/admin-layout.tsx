@@ -20,7 +20,12 @@ function AdminLayout() {
     <div className="flex h-screen flex-col">
       <header className="bg-black/80 p-2">
         <div className="container flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-white">DASH SCHEDULER</h1>
+          <h1
+            className="cursor-pointer select-none text-2xl font-bold text-white"
+            onClick={() => navigate("/admin")}
+          >
+            DASH SCHEDULER
+          </h1>
           <ButtonLogout />
         </div>
       </header>
