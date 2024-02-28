@@ -42,15 +42,19 @@ function FacultySchedule() {
   // fetch data base on userId
   useEffect(() => {
     const fetchData = async () => {
-      const userId = searchParams.get("userId");
+      const id = searchParams.get("id");
+      const semester = searchParams.get("sem");
+      const year = searchParams.get("year");
 
-      if (!userId) {
+      console.log(id, semester, year);
+
+      if (!id) {
         resetSchedules();
         dispatch({ type: "RESET" });
         return;
       }
 
-      const data = await getFormattedShedule(parseInt(userId));
+      const data = await getFormattedShedule(parseInt(id));
 
       const schedState = await getScheduleState(data[0].schedules[0].initials);
 

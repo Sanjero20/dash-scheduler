@@ -24,7 +24,7 @@ function FacultySummary() {
   const { setSummary } = useFacultyStore();
 
   const [searchParams] = useSearchParams();
-  const [userId, setUserId] = useState(searchParams.get("userId") || "");
+  const [userId, setUserId] = useState(searchParams.get("id") || "");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,7 +33,7 @@ function FacultySummary() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const id = searchParams.get("userId");
+      const id = searchParams.get("id");
 
       setUserId(id || "");
 

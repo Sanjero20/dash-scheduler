@@ -26,7 +26,7 @@ function SelectFaculty() {
 
   const { setFacultyName, resetAll } = useFacultyStore();
   const [selectedId, setSelectedId] = useState<string | null>(
-    searchParams.get("userId"),
+    searchParams.get("id"),
   );
 
   const [open, setOpen] = useState(false);
@@ -56,24 +56,25 @@ function SelectFaculty() {
   useEffect(() => {
     if (!selectedId) {
       setValue("");
-      searchParams.delete("userId");
+      searchParams.delete("id");
       setSearchParams(searchParams);
       return;
     }
 
-    setSearchParams({ userId: selectedId.toString() });
+    searchParams.set("id", selectedId.toString());
+    setSearchParams(searchParams);
   }, [value]);
 
   // reset all details if params is invalid
   useEffect(() => {
-    const id = searchParams.get("userId");
+    const id = searchParams.get("id");
 
     if (!id) {
       setSelectedId(null);
       setValue("");
       resetSchedules();
       resetAll();
-      searchParams.delete("userId");
+      searchParams.delete("id");
       setSearchParams(searchParams);
     }
 

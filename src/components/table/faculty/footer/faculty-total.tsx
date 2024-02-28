@@ -24,7 +24,7 @@ function FacultyTotal() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const id = searchParams.get("userId");
+      const id = searchParams.get("id");
       setUserId(id || "");
 
       // Reset values
@@ -61,7 +61,7 @@ function FacultyTotal() {
   }, [officialTime, hours, overtimeWithin, overtimeOutside]);
 
   useEffect(() => {
-    if (!searchParams.get("userId")) return;
+    if (!searchParams.get("id")) return;
 
     const totalHours = calculateHoursByDay(schedules);
     const parsed = totalHours.map((hour) => hour.toString());
