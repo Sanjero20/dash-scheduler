@@ -187,7 +187,7 @@ function FacultySchedule() {
                 handleInputChange={handleInputChange}
               />
 
-              {index < 9 && (
+              {index < 23 && (
                 <>
                   <td>
                     {uniqueEvenValues && index < uniqueEvenValues.length
@@ -235,7 +235,7 @@ function FacultySchedule() {
                 handleInputChange={handleInputChange}
               />
 
-              {index < 8 && (
+              {index < 22 && (
                 <>
                   <td>
                     {uniqueOddValues && index < uniqueOddValues.length
@@ -275,7 +275,7 @@ function FacultySchedule() {
               )}
 
               {/* Columns for the names in the right side of the table */}
-              {index == 8 && (
+              {index == 22 && (
                 <ColumnName
                   rowSpan={4}
                   name={facultyName}
@@ -283,9 +283,9 @@ function FacultySchedule() {
                 />
               )}
 
-              {index == 10 && <DeanRow name={deanName} rowSpan={6} />}
+              {index == 24 && <DeanRow name={deanName} rowSpan={6} />}
 
-              {index == 13 && <ViceChancellorRow name={vcaaName} rowSpan={9} />}
+              {index == 27 && <ViceChancellorRow name={vcaaName} rowSpan={9} />}
             </tr>
           </Fragment>
         );

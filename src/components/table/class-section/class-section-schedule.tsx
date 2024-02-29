@@ -119,7 +119,7 @@ function ClassSchedule() {
               disabled
             />
 
-            {index < 5 && (
+            {index < 20 && (
               <>
                 <td>
                   {uniqueEvenValues && index < uniqueEvenValues.length
@@ -136,11 +136,11 @@ function ClassSchedule() {
             )}
 
             {/* Columns for the names in the right side of the table */}
-            {index == 5 && <ColumnName rowSpan={4} name="" title="Adviser" />}
+            {index == 20 && <ColumnName rowSpan={4} name="" title="Adviser" />}
 
-            {index == 7 && <DeanRow name={deanName} rowSpan={4} />}
+            {index == 22 && <DeanRow name={deanName} rowSpan={4} />}
 
-            {index == 9 && <ViceChancellorRow name={vcaaName} rowSpan={10} />}
+            {index == 24 && <ViceChancellorRow name={vcaaName} rowSpan={10} />}
           </tr>
 
           {/* sections */}
@@ -152,7 +152,7 @@ function ClassSchedule() {
               disabled
             />
 
-            {index < 5 && (
+            {index < 20 && (
               <>
                 <td>
                   {uniqueOddValues && index < uniqueOddValues.length
