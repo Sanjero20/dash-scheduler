@@ -46,6 +46,11 @@ export async function getFaculties(): Promise<IFaculty[]> {
   return faculties.rows;
 }
 
+export async function updateFaculty(name: string, initials: string) {
+  const response = await api.put("/faculties/update", { name, initials });
+  return response;
+}
+
 export async function deleteFaculty(initials: string) {
   const response = await api.delete(`/faculties/remove/${initials}`);
   return response;

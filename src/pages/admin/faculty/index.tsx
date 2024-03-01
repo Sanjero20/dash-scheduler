@@ -1,5 +1,6 @@
 import FacultyForm from "./faculty-form";
 import FacultyList from "./faculty-list";
+import UpdateModal from "./faculty-modal";
 import UploadFacultyForm from "./upload-faculty-form";
 
 function FacultyPage() {
@@ -11,6 +12,8 @@ function FacultyPage() {
       </section>
 
       <FacultyList />
+
+      <UpdateModal />
     </div>
   );
 }

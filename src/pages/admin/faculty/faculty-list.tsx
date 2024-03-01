@@ -1,28 +1,17 @@
 import { Trash, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { deleteFaculty, getFaculties } from "@/services/api/faculty";
-import { queryClient } from "@/App";
+import { useQuery } from "@tanstack/react-query";
+import { getFaculties } from "@/services/api/faculty";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import useFacultyModalStore from "@/stores/modal/facultyModal";
 
 function FacultyList() {
-  const { toast } = useToast();
+  const { openModal } = useFacultyModalStore();
 
   const { data } = useQuery({
     queryKey: ["faculty-list"],
     queryFn: getFaculties,
-  });
-
-  const mutation = useMutation({
-    mutationFn: deleteFaculty,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["faculty-list"] });
-      toast({
-        description: "Faculty successfully deleted.",
-      });
-    },
   });
 
   return (
@@ -43,16 +32,14 @@ function FacultyList() {
               <section className="flex gap-2">
                 <Button
                   variant={"destructive"}
-                  onClick={() => mutation.mutate(account.initials)}
-                  className="col-span-1"
+                  onClick={() => openModal(account, "delete")}
                 >
                   <Trash />
                 </Button>
 
                 <Button
-                  className="col-span-1"
                   variant={"default"}
-                  onClick={() => {}}
+                  onClick={() => openModal(account, "update")}
                 >
                   <Edit />
                 </Button>
