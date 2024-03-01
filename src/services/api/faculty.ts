@@ -23,6 +23,12 @@ export async function getFormattedShedule(
   return schedules;
 }
 
+export async function getScheduleBySemAndYear(user_id: number, academic_year: number, semester: string): Promise<ISchedule[]> {
+  const response = await api.get(`/schedules/user/formatted/${academic_year}/${semester}/${user_id}`);
+  const schedules = await response.data;
+  return schedules;
+}
+
 export async function uploadSchedules(data: ISchedule[]) {
   try {
     const response = await api.post("/schedules/bulk/formatted", {

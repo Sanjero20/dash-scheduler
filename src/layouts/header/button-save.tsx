@@ -33,7 +33,7 @@ function ButtonSave() {
   const handleFacultySave = async () => {
     setIsSaving(true);
 
-    const id = searchParams.get("userId");
+    const id = searchParams.get("id");
 
     if (!id) return;
 
