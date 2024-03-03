@@ -9,7 +9,11 @@ import InputCol from "./input/input-col";
 import InputSection from "./input/input-section";
 import InputScheduleState from "./input/input-schedule-state";
 
-import { getFormattedShedule, getScheduleState } from "@/services/api/faculty";
+import {
+  // getFormattedShedule,
+  getScheduleBySemAndYear,
+  getScheduleState,
+} from "@/services/api/faculty";
 import { useScheduleState } from "@/stores/scheduleState";
 import { useScheduleStore } from "@/stores/schedule";
 import { ISchedule } from "@/types/api";
@@ -54,7 +58,12 @@ function FacultySchedule() {
         return;
       }
 
-      const data = await getFormattedShedule(parseInt(id));
+      // const data = await getFormattedShedule(parseInt(id));
+      const data = await getScheduleBySemAndYear(
+        parseInt(id),
+        parseInt(year as string),
+        semester as string,
+      );
 
       const schedState = await getScheduleState(data[0].schedules[0].initials);
 
