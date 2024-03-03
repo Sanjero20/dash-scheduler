@@ -52,8 +52,8 @@ export async function getFaculties(): Promise<IFaculty[]> {
   return faculties.rows;
 }
 
-export async function updateFaculty(name: string, initials: string) {
-  const response = await api.put("/faculties/update", { name, initials });
+export async function updateFaculty(id: number, name: string, initials: string) {
+  const response = await api.put("/faculties/update", { id, name, initials });
   return response;
 }
 

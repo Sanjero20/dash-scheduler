@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 function UpdateModal() {
   const [name, setName] = useState("");
   const [initials, setInitials] = useState("");
+  const [id, setId] = useState(0);
 
   const { isOpen, action, faculty, closeModal } = useFacultyModalStore();
   const { toast } = useToast();
@@ -20,15 +21,17 @@ function UpdateModal() {
     if (!faculty) return;
     setName(faculty.name);
     setInitials(faculty.initials);
+    setId(faculty.id);
   }, [faculty]);
 
   const updateMutation = useMutation({
-    mutationFn: () => updateFaculty(name, initials),
+    mutationFn: () => updateFaculty(id, name, initials),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["faculty-list"] });
       closeModal();
       toast({
         description: "Faculty details updated",
+        variant: "success",
       });
     },
   });
