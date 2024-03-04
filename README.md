@@ -12,9 +12,13 @@ A web based application for managing faculty and class section schedules.
 
 ![login page](./.github/screenshots/login.png)
 
-![admin panel](./.github/screenshots/admin-panel.png)
+![accounts panel](./.github/screenshots/admin-ui/accounts.png)
 
-![user panel](./.github/screenshots/main-page.png)
+![faculties panel](./.github/screenshots/admin-ui/faculties.png)
+
+![user panel](./.github/screenshots/user/faculty-table.png)
+
+![user panel](./.github/screenshots/user/schedule-conflict.png)
 
 ## :hammer_and_wrench: Tech Stack
 
@@ -30,8 +34,8 @@ A web based application for managing faculty and class section schedules.
 
 ### Admin
 
-- [x] Create, Delete accounts
-- [x] Create, Delete Faculties
+- [x] Add, Delete accounts
+- [x] Add, Update, Delete Faculties
 
 ### Faculty Schedule
 
@@ -43,12 +47,12 @@ A web based application for managing faculty and class section schedules.
 ### Room Utilization
 
 - [x] Select room and display who uses it for a certain time.
-- [ ] Update room schedules.
+- [ ] View by semester and academic year.
 
 ### Class Schedule
 
 - [x] Display class schedule and their room occupancy.
-- [ ] Update class schedule.
+- [ ] View by semester and academic year.
 
 ## :notebook_with_decorative_cover: Installation
 
