@@ -34,10 +34,18 @@ function ButtonSave() {
     setIsSaving(true);
 
     const id = searchParams.get("id");
+    const semester = searchParams.get("sem");
+    const acadyear = searchParams.get("year");
 
-    if (!id) return;
+    // requires the year and semester
+    if (!id || !semester || !acadyear) return;
 
-    const response = await uploadSchedules(schedules);
+    const response = await uploadSchedules(
+      schedules,
+      semester,
+      parseInt(acadyear),
+    );
+
     await saveFacultyFooter(id, total, summary);
     await saveScheduleState(scheduleState);
 

@@ -29,9 +29,10 @@ export async function getScheduleBySemAndYear(user_id: number, academic_year: nu
   return schedules;
 }
 
-export async function uploadSchedules(data: ISchedule[]) {
+export async function uploadSchedules(data: ISchedule[], semester='SECOND', year=2024) {
   try {
     const response = await api.post("/schedules/bulk/formatted", {
+      semester, year,
       rows: data,
     });
     return await response.data;
