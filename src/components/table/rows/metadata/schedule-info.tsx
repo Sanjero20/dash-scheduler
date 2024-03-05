@@ -11,6 +11,7 @@ function ScheduleInfo({ category, dropdown }: ScheduleInfoProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [semester, setSemester] = useState(searchParams.get("sem") || "");
+  const [acadYearRange, setAcadYearRange] = useState([2024]);
   const [academicYear, setAcademicYear] = useState<string | number>(
     searchParams.get("year") || "",
   );
@@ -27,6 +28,15 @@ function ScheduleInfo({ category, dropdown }: ScheduleInfoProps) {
     searchParams.set("year", academicYear.toString());
     setSearchParams(searchParams);
   }, [semester, academicYear]);
+
+  // academic year loader ()
+  useEffect(() => {
+    const arrayRange = Array.from(
+      { length: (2030 - 2024) / 1 + 1 },
+      (_, index) => 2024 + index * 1,
+    );
+    setAcadYearRange(arrayRange);
+  }, []);
 
   const handleSemChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSemester(e.target.value);
@@ -62,7 +72,9 @@ function ScheduleInfo({ category, dropdown }: ScheduleInfoProps) {
           value={academicYear}
           onChange={handleYearChange}
         >
-          <option>2024</option>
+          {acadYearRange.map((year) => (
+            <option key={year}>{year}</option>
+          ))}
         </select>
       </td>
     </tr>
