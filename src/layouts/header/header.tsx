@@ -25,7 +25,7 @@ function Header() {
 
   const alternativeNavigateHandler = (path: string) => {
     return function () {
-      setPageID(searchParams.get("userId"));
+      setPageID(searchParams.get("id"));
       if (editState) {
         setNavTarget(path);
         setOpen(true);

@@ -15,9 +15,9 @@ function InputTeachingHours({ list, handler, disabled = false }: Props) {
     return handler(updatedList);
   };
 
-  const total = list
-    .map((data) => parseFloat(data))
-    .reduce((acc, current) => acc + current);
+  // const total = list
+  //   .map((data) => parseFloat(data))
+  //   .reduce((acc, current) => acc + current);
 
   return (
     <tr className="text-sm">
@@ -25,23 +25,23 @@ function InputTeachingHours({ list, handler, disabled = false }: Props) {
 
       {list.map((_item, index) => (
         <td key={index} colSpan={2}>
-          {index <= 4 && (
+          {index <= 6 && (
             <input
               type="number"
               min={0}
               value={list[index]}
               onChange={(e) => handleChange(e, index)}
-              disabled
+              disabled={disabled}
             />
           )}
 
-          {index == 5 && <p className="text-end font-bold">TOTAL</p>}
+          {/* {index == 5 && <p className="text-end font-bold">TOTAL</p>} */}
 
-          {index == 6 && (
+          {/* {index == 6 && (
             <p className="text-center font-bold">
               {total ? `${total} hours` : ""}
             </p>
-          )}
+          )} */}
         </td>
       ))}
     </tr>
