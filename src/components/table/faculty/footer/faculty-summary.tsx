@@ -21,10 +21,11 @@ const reducer = (state: IOverallSummary, action: Action) => {
 
 function FacultySummary() {
   const [state, dispatch] = useReducer(reducer, initialSummary);
-  const { setSummary } = useFacultyStore();
+  const { setSummary, total } = useFacultyStore();
 
   const [searchParams] = useSearchParams();
   const [userId, setUserId] = useState(searchParams.get("id") || "");
+  const [sumHours, setSumHours] = useState(0);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -52,6 +53,15 @@ function FacultySummary() {
   useEffect(() => {
     setSummary(state);
   }, [state]);
+
+  useEffect(() => {
+    console.log(total);
+
+    const totalHoursPerWeek = total.teachingHours
+      .map((data) => parseFloat(data))
+      .reduce((acc, current) => acc + current);
+    setSumHours(totalHoursPerWeek);
+  }, [total]);
 
   return (
     <>
@@ -110,7 +120,7 @@ function FacultySummary() {
           <input
             type="text"
             name="hoursPerWeek"
-            value={state.hoursPerWeek}
+            value={sumHours}
             onChange={handleInputChange}
             disabled={userId == ""}
           />
