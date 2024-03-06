@@ -60,6 +60,7 @@ function ScheduleInfo({ category, dropdown }: ScheduleInfoProps) {
           <option value="FIRST">FIRST</option>
           <option value="SECOND">SECOND</option>
           <option value="SUMMER">SUMMER</option>
+          <option value="SUMMER2">SUMMER2</option>
         </select>
       </td>
       <td colSpan={2} className="text-center">
