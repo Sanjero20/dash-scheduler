@@ -31,15 +31,17 @@ function ClassSchedule() {
 
   useEffect(() => {
     const id = searchParams.get("id");
+    const year = searchParams.get("year");
+    const semester = searchParams.get("sem");
 
-    if (!id) {
+    if (!id || !year || !semester) {
       dispatch({ type: "RESET" });
       resetSchedules();
       return;
     }
 
     const fetchData = async () => {
-      const roomDetails = await getSectionDetails(id);
+      const roomDetails = await getSectionDetails(id, parseInt(year), semester);
       dispatch({ type: "SET_ALL", value: roomDetails });
     };
 

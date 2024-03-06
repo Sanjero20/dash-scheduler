@@ -7,8 +7,8 @@ export async function getSectionList() {
   return data.schedules;
 }
 
-export async function getSectionDetails(section: string): Promise<ISchedule[]> {
-  const response = await api.get(`/schedules/section/formatted/${section}`);
+export async function getSectionDetails(section: string, year: number=2024, semester: string='SECOND'): Promise<ISchedule[]> {
+  const response = await api.get(`/schedules/section/formatted/${year}/${semester}/${section}`);
   const schedules = await response.data;
   return schedules;
 }

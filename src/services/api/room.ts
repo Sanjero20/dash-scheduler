@@ -9,8 +9,10 @@ export async function getRoomList() {
 
 export async function getRoomDataByCode(
   roomCode: string,
+  year: number=2024,
+  semester: string='SECOND',
 ): Promise<ISchedule[]> {
-  const response = await api.get(`/schedules/room/formatted/${roomCode}`);
+  const response = await api.get(`/schedules/room/formatted/${year}/${semester}/${roomCode}`);
   const roomDetails = await response.data;
   return roomDetails;
 }

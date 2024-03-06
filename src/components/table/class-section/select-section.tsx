@@ -30,7 +30,11 @@ function SelectSection() {
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(e.target.value);
-    setSearchParams({ id: e.target.value });
+
+    // to not change the year and sem
+    const year: string = searchParams.get("year") as string;
+    const sem: string = searchParams.get("sem") as string;
+    setSearchParams({ year, sem, id: e.target.value });
   };
 
   return (

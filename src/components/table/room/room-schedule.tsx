@@ -29,14 +29,16 @@ function RoomSchedule() {
 
   useEffect(() => {
     const id = searchParams.get("id");
-    if (!id) {
+    const year = searchParams.get("year");
+    const semester = searchParams.get("sem");
+    if (!id || !year || !semester) {
       resetSchedules();
       dispatch({ type: "RESET" });
       return;
     }
 
     const fetchData = async () => {
-      const roomDetails = await getRoomDataByCode(id);
+      const roomDetails = await getRoomDataByCode(id, parseInt(year), semester);
       dispatch({ type: "SET_ALL", value: roomDetails });
     };
 

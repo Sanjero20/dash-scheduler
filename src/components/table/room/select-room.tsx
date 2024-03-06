@@ -29,8 +29,11 @@ function SelectRoom() {
   }, [searchParams]);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const year: string = searchParams.get("year") ?? "";
+    const semester: string = searchParams.get("sem") ?? "";
+
     setSelectedValue(e.target.value);
-    setSearchParams({ id: e.target.value });
+    setSearchParams({ year, semester, id: e.target.value });
   };
 
   return (
