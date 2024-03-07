@@ -28,6 +28,8 @@ function RoomSchedule() {
   const [vcaaName, setvcaaName] = useState("");
 
   useEffect(() => {
+    console.log("changed??");
+
     const id = searchParams.get("id");
     const year = searchParams.get("year");
     const semester = searchParams.get("sem");
@@ -53,7 +55,6 @@ function RoomSchedule() {
 
   useEffect(() => {
     getFormDetails().then((response) => {
-      console.log(response);
       setDeanName(response.dean);
       setvcaaName(response.vcaa);
     });

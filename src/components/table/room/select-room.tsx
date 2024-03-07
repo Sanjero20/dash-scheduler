@@ -30,10 +30,10 @@ function SelectRoom() {
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const year: string = searchParams.get("year") ?? "";
-    const semester: string = searchParams.get("sem") ?? "";
+    const sem: string = searchParams.get("sem") ?? "";
 
     setSelectedValue(e.target.value);
-    setSearchParams({ year, semester, id: e.target.value });
+    setSearchParams({ year, sem, id: e.target.value });
   };
 
   return (
