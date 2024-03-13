@@ -20,7 +20,7 @@ import { useEditState } from "@/stores/editState";
 function ButtonSave() {
   const [isSaving, setIsSaving] = useState(false);
 
-  const { schedules, setSchedules } = useScheduleStore();
+  const { schedules } = useScheduleStore();
   const { scheduleState } = useScheduleState();
   const { total, summary } = useFacultyStore();
   const { setEditState } = useEditState();
@@ -50,14 +50,30 @@ function ButtonSave() {
     await saveScheduleState(scheduleState);
 
     if (response.conflicts) {
+      let errorType;
+      switch (response.conflicts[0].type) {
+        case "online-conflict":
+          errorType = "online to face to face";
+          break;
+        case "room-conflict":
+          errorType = "room";
+          break;
+        case "section-conflict":
+          errorType = "section";
+          break;
+        default:
+          errorType = "";
+          break;
+      }
+
       toast({
         variant: "destructive",
         title: "Something went wrong.",
-        description: "There are conflicting schedules.",
+        description: `There are conflicting ${errorType} schedules.`,
         action: <XCircle />,
       });
 
-      setSchedules(response.formattedConflict);
+      // setSchedules(response.formattedConflict);
     } else {
       toast({
         variant: "success",
