@@ -74,7 +74,7 @@ function ScheduleInfo({ category, dropdown }: ScheduleInfoProps) {
           onChange={handleYearChange}
         >
           {acadYearRange.map((year) => (
-            <option key={year}>{year}</option>
+            <option key={year}>{year} {' - '} {year + 1}</option>
           ))}
         </select>
       </td>
