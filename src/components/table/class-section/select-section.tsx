@@ -48,7 +48,7 @@ function SelectSection() {
       </option>
 
       {sections &&
-        sections.map((section) => (
+        sections.sort().map((section) => (
           <option key={section} value={section}>
             {section}
           </option>
