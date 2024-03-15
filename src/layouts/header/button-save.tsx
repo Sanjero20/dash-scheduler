@@ -50,26 +50,31 @@ function ButtonSave() {
     await saveScheduleState(scheduleState);
 
     if (response.conflicts) {
-      let errorType;
+      let errorMessage = "There are conflicting schedules.";
       switch (response.conflicts[0].type) {
         case "online-conflict":
-          errorType = "online to face to face";
+          errorMessage =
+            "There are conflicting schedules in added online schedule";
+          break;
+        case "ftf-conflict":
+          errorMessage =
+            "There are conflicting schedules in added face-to-face schedule";
           break;
         case "room-conflict":
-          errorType = "room";
+          errorMessage = "There are conflicting schedules in room utilization.";
           break;
         case "section-conflict":
-          errorType = "section";
+          errorMessage = "There are conflicting schedules in class schedules.";
           break;
         default:
-          errorType = "";
+          errorMessage = "There are conflicting schedules.";
           break;
       }
 
       toast({
         variant: "destructive",
         title: "Something went wrong.",
-        description: `There are conflicting ${errorType} schedules.`,
+        description: errorMessage,
         action: <XCircle />,
       });
 
