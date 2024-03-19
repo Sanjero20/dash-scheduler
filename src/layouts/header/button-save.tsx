@@ -20,7 +20,7 @@ import { useEditState } from "@/stores/editState";
 function ButtonSave() {
   const [isSaving, setIsSaving] = useState(false);
 
-  const { schedules } = useScheduleStore();
+  const { schedules, setSchedules } = useScheduleStore();
   const { scheduleState } = useScheduleState();
   const { total, summary } = useFacultyStore();
   const { setEditState } = useEditState();
@@ -78,7 +78,7 @@ function ButtonSave() {
         action: <XCircle />,
       });
 
-      // setSchedules(response.formattedConflict);
+      setSchedules(response.formattedConflict);
     } else {
       toast({
         variant: "success",
