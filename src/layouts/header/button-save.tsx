@@ -78,7 +78,29 @@ function ButtonSave() {
         action: <XCircle />,
       });
 
-      setSchedules(response.formattedConflict);
+      // manually search through conflicts
+      for (let ci = 0; ci < response.conflicts.length; ci++) {
+        const conflict = response.conflicts[ci];
+        const conflictTime = conflict["schedule"]["time"];
+        const conflictDay = conflict["schedule"]["day"];
+
+        setSchedules(
+          schedules.map((sched) => {
+            if (sched.time === conflictTime) {
+              const schedules = sched.schedules.map((day) => {
+                if (day.day === conflictDay) day.conflicted = true;
+                return day;
+              });
+              const time = sched.time;
+              return { schedules, time };
+            }
+
+            return sched;
+          }),
+        );
+      }
+
+      console.log(schedules);
     } else {
       toast({
         variant: "success",
