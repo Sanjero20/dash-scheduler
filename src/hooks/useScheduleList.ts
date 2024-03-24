@@ -30,6 +30,7 @@ const scheduleReducer = (state: ISchedule[], action: IAction) => {
           ? {
               ...schedule,
               schedules: schedule.schedules.map((day) => {
+                day.conflicted = false;
                 if (day.day === action.day) {
                   return { ...day, [action.key]: action.value };
                 }
