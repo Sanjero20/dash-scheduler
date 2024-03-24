@@ -62,6 +62,7 @@ export function createSchedulePerTime() {
         section: "",
         room: "",
         initials: "",
+        conflicted: false
       };
 
       daySchedules.push(newSchedule);

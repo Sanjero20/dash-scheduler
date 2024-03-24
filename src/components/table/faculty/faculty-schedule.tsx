@@ -177,6 +177,10 @@ function FacultySchedule() {
       if (!matched) cursedEven.push(uniqueEven[i]);
     }
 
+    // even has 21 max, and odd has 20
+    cursedEven.splice(0, 21);
+    cursedOdd.splice(0, 20);
+
     setUniqueEvenValues(cursedEven);
     setUniqueOddValues(cursedOdd);
   };
@@ -196,7 +200,7 @@ function FacultySchedule() {
                 handleInputChange={handleInputChange}
               />
 
-              {index < 23 && (
+              {index < 21 && (
                 <>
                   <td>
                     {uniqueEvenValues && index < uniqueEvenValues.length
@@ -244,7 +248,7 @@ function FacultySchedule() {
                 handleInputChange={handleInputChange}
               />
 
-              {index < 22 && (
+              {index < 20 && (
                 <>
                   <td>
                     {uniqueOddValues && index < uniqueOddValues.length
@@ -284,7 +288,7 @@ function FacultySchedule() {
               )}
 
               {/* Columns for the names in the right side of the table */}
-              {index == 22 && (
+              {index == 20 && (
                 <ColumnName
                   rowSpan={4}
                   name={facultyName}
@@ -292,9 +296,9 @@ function FacultySchedule() {
                 />
               )}
 
-              {index == 24 && <DeanRow name={deanName} rowSpan={6} />}
+              {index == 22 && <DeanRow name={deanName} rowSpan={6} />}
 
-              {index == 27 && <ViceChancellorRow name={vcaaName} rowSpan={9} />}
+              {index == 25 && <ViceChancellorRow name={vcaaName} rowSpan={9} />}
             </tr>
           </Fragment>
         );
