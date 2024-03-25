@@ -178,11 +178,11 @@ function FacultySchedule() {
     }
 
     // even has 21 max, and odd has 20
-    cursedEven.splice(0, 21);
-    cursedOdd.splice(0, 20);
+    const slicedEven = cursedEven.splice(0, 21);
+    const slicedOdd = cursedOdd.splice(0, 20);
 
-    setUniqueEvenValues(cursedEven);
-    setUniqueOddValues(cursedOdd);
+    setUniqueEvenValues(slicedEven);
+    setUniqueOddValues(slicedOdd);
   };
 
   return (
