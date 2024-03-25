@@ -99,8 +99,6 @@ function ButtonSave() {
           }),
         );
       }
-
-      console.log(schedules);
     } else {
       toast({
         variant: "success",
@@ -138,7 +136,7 @@ function ButtonSave() {
     <Button
       variant={"secondary"}
       onClick={pathname == "/" ? handleFacultySave : handleSectionScheduleSave}
-      disabled={isSaving}
+      disabled={isSaving || pathname === "/schedules" || pathname == "/rooms"}
       className="w-24"
     >
       {isSaving ? "Saving..." : "Save"}
